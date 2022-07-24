@@ -1,0 +1,37 @@
+:root {
+    --primary-color: #DD614A; /* Fire opal */
+    --secondary-color: #F48668; /* middle red */
+    --thirdcolor: #F4A698; /* Vivid tangerine */
+    --fourth-color: #C5C392; /* Sage */
+    --fifth-color: #73A580; /* Shiny Shamrock */
+}
+nav {
+    background-color: var(--primary-color);
+    height: 100px;;
+    display:flex;
+    align-items: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+nav ul.links__left,
+nav ul.links__right
+ {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 50px;
+}
+
+nav ul.links__left li,
+nav ul.links__right li {
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
+}
+h1.owner_name {
+    color: white;
+    font-weight: 700;
+    font-size: 32px;
+}

@@ -1,0 +1,19 @@
+.comment__grid {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+}
+
+.comment {
+    border: 1px solid red;
+}
+
+.likes__and__dislikes {
+    display: flex;
+    flex-direction: row;
+}
+.likebutton, .dislikebutton {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+}

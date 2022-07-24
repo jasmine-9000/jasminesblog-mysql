@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Post title</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Tapestry&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/reset.css">
+    <link rel="stylesheet" href="/general.css">
+    <link rel="stylesheet" href="/nav.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/comment.css">
+</head>
+<body>
+    <%- include('partials/header.ejs') %> 
+    <h1 style="color: pink;"><%= title %></h1>
+    <h2><%= subtitle %></h2>
+    <main>
+        <%= mainbody %>
+    </main>
+    <aside>
+        <%= conclusion %>
+    </aside>
+    <aside>
+        <form id="newcomment_form" data-postid=<%= PostID %>>
+            <label for="newcomment">Add Comment</label>
+            <input type="text" name="newcomment" class="newcomment">
+            <p>Your IP address will be attached to every comment you leave</p>
+            <input type="submit">
+        </form>
+    </aside>
+    <h1>Comments:</h1>
+    <div class="comment__grid">
+        <% comments.forEach( function(comment)  { %>
+            <%- include ('./partials/comment.ejs', comment) %>
+        <% }) %>
+        <!--
+        <div class="comment">
+            <p class="comment__innertext">
+                This is a sample comment
+            </p>
+            <p class="comment__author">Left by <span id="author_id0001">192.168.1.254</span></p>
+            <p class="comment__likes">Likes: <span id="likes_id0001">1</span></p>
+            <p class="comment__dislikes">Dislikes: <span id="dislikes_id0001">0</span></p>
+        </div>
+        -->
+    </div>
+    <script src="/postscript.js"></script>
+</body>
+</html>
