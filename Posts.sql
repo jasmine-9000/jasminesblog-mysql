@@ -7,7 +7,9 @@ CREATE TABLE Posts
     PostSubtitle MEDIUMTEXT,
     PostMainBody LONGTEXT,
     PostConclusion MEDIUMTEXT,
-    PostCommentCount INT
+    PostCommentCount INT,
+    DateAdded DATETIME DEFAULT CURRENT_TIMESTAMP, # Available as of MySQL 5.6.5
+	DateModified DATETIME ON UPDATE CURRENT_TIMESTAMP # Available as of MySQL 5.6.5
     );
     
 CREATE TABLE Comments
@@ -17,7 +19,9 @@ CREATE TABLE Comments
         Author VARCHAR(250),
         Likes INT,
         Dislikes INT,
-        RepliesCount INT
+        RepliesCount INT,
+        DateAdded DATETIME DEFAULT CURRENT_TIMESTAMP, # Available as of MySQL 5.6.5
+		DateModified DATETIME ON UPDATE CURRENT_TIMESTAMP # Available as of MySQL 5.6.5
 			);
 CREATE TABLE Replies
 	( ReplyID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -25,5 +29,7 @@ CREATE TABLE Replies
     InnerText VARCHAR(2500),
     Author VARCHAR(250),
     Likes INT,
-    Dislikes INT
+    Dislikes INT,
+    DateAdded DATETIME DEFAULT CURRENT_TIMESTAMP, # Available as of MySQL 5.6.5
+	DateModified DATETIME ON UPDATE CURRENT_TIMESTAMP # Available as of MySQL 5.6.5
     )

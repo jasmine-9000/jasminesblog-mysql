@@ -237,7 +237,9 @@ app.get('/comments/:id', (req, res) => {
         }
         console.log(results);
         let data = convertcomment(results[0]);
-        const HTML = ejs.renderFile(__dirname + '/ejs/partials/comment.ejs', data, function(err, string) {
+        console.log(data);
+        data.CommentID = req.params.id;
+        const HTML = ejs.renderFile(__dirname + '/ejs/singularcomment.ejs', {comment: data}, function(err, string) {
             if(err) {
                 console.log("Error rendering Comment EJS.");
                 console.log(err);
