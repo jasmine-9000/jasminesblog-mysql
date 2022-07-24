@@ -1,10 +1,4 @@
-:root {
-    --primary-color: #DD614A; /* Fire opal */
-    --secondary-color: #F48668; /* middle red */
-    --thirdcolor: #F4A698; /* Vivid tangerine */
-    --fourth-color: #C5C392; /* Sage */
-    --fifth-color: #73A580; /* Shiny Shamrock */
-}
+
 nav {
     background-color: var(--primary-color);
     height: 100px;;

@@ -12,7 +12,11 @@ window.addEventListener('DOMContentLoaded', (e) => {
 function newcommentformhandler(e) {
     e.preventDefault();
     const OriginPostId = document.getElementById('newcomment_form')?.dataset.postid;
-    const InnerText = document.querySelector('#newcomment_form input[type=text].newcomment').value;
+    const InnerText = document.querySelector('#newcomment_form input[type=text].newcomment')?.value;
+    if(InnerText === '' || InnerText === null) {
+        alert('Comment cannot be empty');
+        return;
+    }
     const Author = "jasmine";
     const Likes = 0;
     const Dislikes = 0;
@@ -30,7 +34,7 @@ function newcommentformhandler(e) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data)    
     }).then(response => {
         console.log(response);
         return response.json();

@@ -16,17 +16,20 @@
     <link rel="stylesheet" href="/nav.css">
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/comment.css">
+    <link rel="stylesheet" href="/post.css">
 </head>
 <body>
     <%- include('partials/header.ejs') %> 
-    <h1 style="color: pink;"><%= title %></h1>
-    <h2><%= subtitle %></h2>
-    <main>
-        <%= mainbody %>
-    </main>
-    <aside>
-        <%= conclusion %>
-    </aside>
+    <div class="post">
+        <h1 class="post__title"><%= title %></h1>
+        <h2 class="post__subtitle"><%= subtitle %></h2>
+        <main class="post__mainbody">
+            <%= mainbody %>
+        </main>
+        <aside class="post__conclusion">
+            <%= conclusion %>
+        </aside>
+    </div>
     <aside>
         <form id="newcomment_form" data-postid=<%= PostID %>>
             <label for="newcomment">Add Comment</label>
