@@ -30,12 +30,30 @@
             <%= conclusion %>
         </aside>
     </div>
-    <aside>
+    <aside class="comment_box">
+        <h1>Leave a Reply</h1>
+        <p class="mewo">Your email address will not be published. Required fields are marked *</p>
         <form id="newcomment_form" autocomplete="off" data-postid=<%= PostID %>>
-            <label for="newcomment">Add Comment</label>
-            <input type="text" name="newcomment" class="newcomment">
-            <p>Your IP address will be attached to every comment you leave</p>
-            <input type="submit">
+            <div class="form-control-1">
+                <label for="newcomment" class="newcomment_label">Comment</label>
+                <textarea rows="10" cols="200" name="newcomment" class="newcomment"></textarea>
+            </div>
+            <div class="form-control-2">
+                <label for="newcomment_name" class="newcomment_name">Name*</label>
+                <input type="text" name="newcomment_name" class="newcomment_nameinput">
+            </div>
+            <div class="form-control-3">
+                <label for="newcomment_email" class="newcomment_email">Email*</label>
+                <input type="text" name="newcomment_email" class="newcomment_emailinput">
+            </div>
+            <div class="form-control-4">
+                <label for="newcomment_website" class="newcomment_website">Website</label>
+                <input type="text" name="newcomment_website" class="newcomment_websiteinput">
+            </div>
+            <div class="form-control-5">
+                <input type="submit">
+            </div>
+            
         </form>
     </aside>
     <h1>Comments:</h1>

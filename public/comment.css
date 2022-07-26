@@ -21,10 +21,9 @@
 /* comment form styling */
 form {
     display:flex;
-    flex-direction: column;
-
+    flex-flow: row wrap;
     width: 1000px;
-    align-items: center;
+    border: 1px solid magenta;
 }
 
 form input[type=submit] {
@@ -34,5 +33,35 @@ form input[type=submit] {
     font-size: 32px;
     border-radius: 10px;
     padding: 5px 20px;
+    width: 250px;
 
+}
+.comment_box h1 {
+    color: var(--secondary-color);
+    font-weight: 700;
+    font-size: 32px;
+    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.1);
+
+}
+
+.newcomment_label,
+.newcomment_name,
+.newcomment_email,
+.newcomment_website
+{
+    color: var(--secondary-color);
+    font-weight: 400;
+    font-size: 23px;
+}
+
+.form-control-1,
+.form-control-2,
+.form-control-3,
+.form-control-4,
+.form-control-5 {
+    display: flex;
+    flex-direction: column;
+}
+.form-control-1 {
+    width: 100%;
 }

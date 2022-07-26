@@ -13,10 +13,17 @@
     <style>
         .boxgrid {
             display: flex;
+            flex-flow: row wrap;
         }
         .box1,.box2,.box3,.box4,.box5 {
             width: 100px;
             height: 100px;
+            flex: 1 200px;
+        }
+        @media screen and (min-width: 800px) {
+            .box2 {
+                flex: 3 0px;
+            }
         }
         .box1 {background-color: var(--primary-color);}
         .box2 {background-color: var(--secondary-color);}
