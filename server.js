@@ -47,6 +47,7 @@ const conn = mysql.createConnection({
 
 // server stuff
 app.use('/', express.static(__dirname + '/public'));
+app.use('/ejs/partials', express.static(__dirname + '/ejs/partials'));
 /*
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
@@ -316,17 +317,23 @@ app.get('/comments', (req, res) => {
 app.post('/comments', (req, res) => {
     console.log("Stuff received")
     console.log(req.body);
+    const OriginPostId = SqlString.escape(req.body.OriginPostId);
+    const InnerText = SqlString.escape(req.body.InnerText);
+    const Author = SqlString.escape(req.body.Author);
     conn.execute(`INSERT INTO Comments (OriginPostId, InnerText, Author, Likes, Dislikes, RepliesCount)
-            VALUES ('${req.body.OriginPostId}', '${req.body.InnerText}', '${req.body.Author}', 0,0,0)
+            VALUES (${OriginPostId}, ${InnerText}, ${Author}, 0,0,0)
         `, function(err, results, fields) {
             if(err) {
                 console.log("An error occurred");
                 console.log(err);
+                res.sendStatus(500);
+                return;
             }
+            console.log("Stuff received back after POST comment:");
             console.log(results);
             console.log(fields);
+            res.send(String(results.insertId));
         })
-    res.send(`{"meow": "meow"}`);
 })
 
 

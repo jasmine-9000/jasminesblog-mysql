@@ -31,7 +31,7 @@
         </aside>
     </div>
     <aside>
-        <form id="newcomment_form" data-postid=<%= PostID %>>
+        <form id="newcomment_form" autocomplete="off" data-postid=<%= PostID %>>
             <label for="newcomment">Add Comment</label>
             <input type="text" name="newcomment" class="newcomment">
             <p>Your IP address will be attached to every comment you leave</p>
@@ -54,6 +54,7 @@
         </div>
         -->
     </div>
+    <script src="/ejs.min.js"></script>
     <script src="/postscript.js"></script>
 </body>
 </html>

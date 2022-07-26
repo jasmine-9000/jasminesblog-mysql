@@ -29,7 +29,10 @@ form {
 
 form input[type=submit] {
     background-color: var(--fourth-color);
+    color: #565656;
     border: none;
     font-size: 32px;
+    border-radius: 10px;
+    padding: 5px 20px;
 
 }
