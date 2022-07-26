@@ -35,16 +35,16 @@
         <p class="mewo">Your email address will not be published. Required fields are marked *</p>
         <form id="newcomment_form" autocomplete="off" data-postid=<%= PostID %>>
             <div class="form-control-1">
-                <label for="newcomment" class="newcomment_label">Comment</label>
-                <textarea rows="10" cols="200" name="newcomment" class="newcomment"></textarea>
+                <label for="newcomment" class="newcomment_label">Comment*</label>
+                <textarea rows="10" cols="200" name="newcomment" class="newcomment" required></textarea>
             </div>
             <div class="form-control-2">
                 <label for="newcomment_name" class="newcomment_name">Name*</label>
-                <input type="text" name="newcomment_name" class="newcomment_nameinput">
+                <input type="text" name="newcomment_name" class="newcomment_nameinput" required>
             </div>
             <div class="form-control-3">
                 <label for="newcomment_email" class="newcomment_email">Email*</label>
-                <input type="text" name="newcomment_email" class="newcomment_emailinput">
+                <input type="text" name="newcomment_email" class="newcomment_emailinput" required>
             </div>
             <div class="form-control-4">
                 <label for="newcomment_website" class="newcomment_website">Website</label>

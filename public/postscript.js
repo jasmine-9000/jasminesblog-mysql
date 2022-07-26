@@ -12,12 +12,22 @@ window.addEventListener('DOMContentLoaded', (e) => {
 function newcommentformhandler(e) {
     e.preventDefault();
     const OriginPostId = document.getElementById('newcomment_form')?.dataset.postid;
-    const InnerText = document.querySelector('#newcomment_form input[type=text].newcomment')?.value;
-    if(InnerText === '' || InnerText === null) {
+    const InnerText = document.querySelector('#newcomment_form textarea.newcomment')?.value;
+    if(!inputvalidator(InnerText)) {
         alert('Comment cannot be empty');
+        return;    
+    }
+    const Author = document.querySelector('#newcomment_form input[type=text].newcomment_nameinput')?.value;
+    if(!inputvalidator(Author)) {
+        alert('Name cannot be empty');
         return;
     }
-    const Author = "jasmine";
+    const Email = document.querySelector('#newcomment_form input[type=text].newcomment_emailinput')?.value;
+    if(!inputvalidator(Author)) {
+        alert('Email cannot be empty');
+        return;
+    }
+    const Website = document.querySelector('#newcomment_form input[type=text].newcomment_websiteinput').value;
     const Likes = 0;
     const Dislikes = 0;
     const RepliesCount = 0;
@@ -25,10 +35,14 @@ function newcommentformhandler(e) {
         OriginPostId: OriginPostId,
         InnerText: InnerText,
         Author: Author,
+        Email: Email,
+        Website: Website,
         Likes: Likes,
         Dislikes: Dislikes,
         RepliesCount: RepliesCount
     }
+    console.log("Data input: ");
+    console.log(data);
     fetch(`${SERVER_PROTOCOL}://${SERVER_HOST}:${SERVER_PORT}/comments`, {
         method: 'POST',
         headers: {
@@ -117,5 +131,11 @@ function addnewcommenttoDOM(comment, CommentID) {
     commentLikes.classList.add('likebutton');
     commentDislikes.classList.add('dislikebutton');
     */
+}
+function inputvalidator(input) {
+    if(input === '' || input === null ) {
+        return false
+    }
+    return true;
 }
 

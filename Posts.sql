@@ -32,4 +32,12 @@ CREATE TABLE Replies
     Dislikes INT,
     DateAdded DATETIME DEFAULT CURRENT_TIMESTAMP, # Available as of MySQL 5.6.5
 	DateModified DATETIME ON UPDATE CURRENT_TIMESTAMP # Available as of MySQL 5.6.5
-    )
+    );
+    
+CREATE TABLE Users 
+	(UserID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	Username varchar(250) NOT NULL,
+    Email varchar(250) NOT NULL,
+    Website varchar(250), 
+    IPADDRESS varchar(250)
+    );
