@@ -5,6 +5,8 @@ const SqlString = require('sqlstring');
 
 
 require('dotenv').config();
+const post = require('./routes/postroutes')
+const {grabpost, convertcomment, convertpost} = require('./utils/util');
 // import ifixit from './ifixit.json' assert {type: 'json'};
 
 // VARIABLES
@@ -13,15 +15,18 @@ require('dotenv').config();
 
 const SERVER_PORT = 5500;
 
-// DATABASE VARIABLES
-const PORT = process.env.DB_PORT;
-const XPROTOCOLPORT = process.env.DB_XPROTOCOLPORT;
-const ROOT_PASSWORD = process.env.DB_ROOT_PASSWORD;
-
-const HOST = process.env.DB_HOST;
-const USERNAME = process.env.DB_USERNAME;
-const PASSWORD = process.env.DB_PASSWORD;
-const WINDOWS_SERVICE_NAME = process.env.WINDOWS_SERVICE_NAME_MYSQL;
+/**
+    // DATABASE VARIABLES
+    const PORT = process.env.DB_PORT;
+    const XPROTOCOLPORT = process.env.DB_XPROTOCOLPORT;
+    const ROOT_PASSWORD = process.env.DB_ROOT_PASSWORD;
+    
+    const HOST = process.env.DB_HOST;
+    const USERNAME = process.env.DB_USERNAME;
+    const PASSWORD = process.env.DB_PASSWORD;
+    const WINDOWS_SERVICE_NAME = process.env.WINDOWS_SERVICE_NAME_MYSQL;
+    const DBNAME = process.env.DB_NAME;
+*/
 
 // MAIN APP CREATION
 
@@ -37,14 +42,22 @@ app.use(express.json());
 
 
 // file imports 
-
+/*
 const conn = mysql.createConnection({
     host: HOST, 
     user: USERNAME,
     password: PASSWORD,
-    database: 'MyPosts'
+    port: PORT,
+    database: DBNAME
 })
-
+conn.connect(function(err) {
+    if(err) {
+        return console.error("Error: " + err.message);
+    }
+    console.log("Connected to the MySQL server!");
+})
+*/
+const conn = require('./mysqlconnection');
 // server stuff
 app.use('/', express.static(__dirname + '/public'));
 app.use('/ejs/partials', express.static(__dirname + '/ejs/partials'));
@@ -52,46 +65,9 @@ app.use('/ejs/partials', express.static(__dirname + '/ejs/partials'));
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 }) */
-function grabpost(results, place=0) {
-    const post = results[place];
-    return convertpost(post);
-}
 
-function convertpost(post) {
-    let data;
-    if(post) {
-        data = {   
-                  PostID: post.PostID,
-                  title: post.PostTitle ? post.PostTitle :  "",
-                  subtitle: post.PostSubtitle ? post.PostSubtitle :  "",
-                  mainbody: post.PostMainBody ? post.PostMainBody : "",
-                  conclusion: post.PostConclusion ? post.PostConclusion :  ""}
-    }
-    else {
-        data = {title: "404 not found",
-                subtitle: "",
-                mainbody: "",
-                conclusion: ""}
-    }
-    return data;
-}
 
-function convertcomment(comment) {
-    let data;
-    if(comment) {
-        data = comment
-    }
-    else {
-        data = {CommentID: "-1",
-                OriginPostId: "-1",
-                InnerText: "404 Not Found",
-                Author: "unknown",
-                Likes: 0,
-                Dislikes: 0,
-                RepliesCount: 0}
-    }
-    return data;
-}
+
 
 app.get('/posts', (req, res) => {
     conn.query('SELECT * FROM Posts', 
@@ -189,14 +165,15 @@ app.get('/ejssample', (req, res) => {
     res.send(HTML);
 })
 
-
-
+app.get('/posts/:id', post.getpost)
+/*
 app.get('/posts/:id', (req, res) => {
     let HTML = "";
     conn.execute(`SELECT * FROM Posts WHERE PostID = ${req.params.id}`,function(err, results, fields) {
         if(err) {
             console.log("Error:");
             console.error(err);
+            res.send("404 error not found");
             return;
         }
         console.log(results);
@@ -215,6 +192,7 @@ app.get('/posts/:id', (req, res) => {
                 if(err) {
                     console.log("Error rendering EJS.");
                     console.log(err);
+                    res.send("Error Rendering EJS");
                     return;
                 }
                 res.send(string);
@@ -226,7 +204,7 @@ app.get('/posts/:id', (req, res) => {
     })
     // res.send(`not implemented. Post id: ${req.params.id}`)
 })
-
+*/
 app.get('/comments/:id', (req, res) => {
     let HTML = "";
     conn.execute(`SELECT * FROM Comments WHERE CommentID = ${req.params.id}`, function(err, results, fields) {
