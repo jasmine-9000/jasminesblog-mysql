@@ -12,9 +12,9 @@ const POOLSIZE = 100;
 
 function Connection() {
     console.log("Trying login to database with these credentials: ");
-console.log("Database Host:", HOST);
-console.log("Database Username:", USERNAME);
-console.log("Database Password:", PASSWORD);
+    console.log("Database Host:", HOST);
+    console.log("Database Username:", USERNAME);
+    console.log("Database Password:", PASSWORD);
 
     this.pool = null;
     this.init = function() {

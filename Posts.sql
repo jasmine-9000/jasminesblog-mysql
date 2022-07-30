@@ -16,7 +16,7 @@ CREATE TABLE Comments
 	( CommentID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
 		OriginPostID INT,
         InnerText VARCHAR(2500),
-        Author VARCHAR(250),
+        AuthorID INT NOT NULL,
         Likes INT,
         Dislikes INT,
         RepliesCount INT,
@@ -27,7 +27,7 @@ CREATE TABLE Replies
 	( ReplyID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     OriginCommentID INT,	
     InnerText VARCHAR(2500),
-    Author VARCHAR(250),
+    AuthorID INT NOT NULL,
     Likes INT,
     Dislikes INT,
     DateAdded DATETIME DEFAULT CURRENT_TIMESTAMP, # Available as of MySQL 5.6.5
