@@ -14,7 +14,8 @@ function convertpost(post) {
                   conclusion: post.PostConclusion ? post.PostConclusion :  ""}
     }
     else {
-        data = {title: "404 not found",
+        data = {
+                title: "404 not found",
                 subtitle: "",
                 mainbody: "",
                 conclusion: ""}

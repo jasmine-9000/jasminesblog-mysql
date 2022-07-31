@@ -19,7 +19,7 @@ console.log("Connection: " + conn.pool);
 
 exports.getcommentbyid = (req, res) => {
     let HTML = "";
-    conn.execute(`SELECT * FROM Comments WHERE CommentID = ${req.params.id}`, function(err, results, fields) {
+    conn.pool.execute(`SELECT * FROM Comments INNER JOIN Users ON Users.UserID = Comments.AuthorID AND CommentID = ${req.params.id}`, function(err, results, fields) {
         if(err) {
             console.log("Error retrieving comment: ");
             console.error(err);
@@ -30,7 +30,7 @@ exports.getcommentbyid = (req, res) => {
         let data = convertcomment(results[0]);
         console.log(data);
         data.CommentID = req.params.id;
-        const HTML = ejs.renderFile(__dirname + '/ejs/singularcomment.ejs', {comment: data}, function(err, string) {
+        const HTML = ejs.renderFile(appDir + '/ejs/singularcomment.ejs', {comment: data}, function(err, string) {
             if(err) {
                 console.log("Error rendering Comment EJS.");
                 console.log(err);
@@ -43,30 +43,36 @@ exports.getcommentbyid = (req, res) => {
 };
 
 exports.addlike = (req, res) => {
-    conn.execute(`SELECT Likes from Comments WHERE CommentID = ${req.params.id}`, (err, field) => {
+    let errorfound = false;
+    conn.pool.execute(`SELECT Likes from Comments WHERE CommentID = ${req.params.id}`, (err, field) => {
         if(err) {
             console.log("Error finding comment. Error: ");
             console.error(err);
+            res.send('Error: ' + err);
+            errorfound = true;
+            return;
         }
-        let likes = field[0].likes
-        conn.execute(`UPDATE Comments
+        console.log("Stuff received from Likes request MySQL Query:")
+        console.log(field);
+        let likes = field[0].Likes;
+        const query = `UPDATE Comments
                         SET Likes = ${likes + 1}
-                        WHERE CommentID = ${req.params.id}`, (err, result) => {
-                            if(err) {
-                                console.log("Error updating like count. Error: ");
-                                console.err(err);
-                                res.send(err);
-                                return;
-                            }
-                        })
-        res.send(field);
+                        WHERE CommentID = ${req.params.id}`;
+        conn.pool.execute(query, (err, result) => {
+                                if(err) {
+                                    console.log("Error updating like count. Error: ");
+                                    console.error(err);
+                                    res.send({"status": "failed", "error": err});
+                                    return;
+                                }
+                                res.send({"status": "good"});
+                            })
+                            
     })
-        
-    res.send(502);
 }
 
 exports.getlikesbyid = (req, res) => {
-    conn.execute(`SELECT Likes from Comments WHERE CommentID = ${req.params.id}`, (err, field) => {
+    conn.pool.execute(`SELECT Likes from Comments WHERE CommentID = ${req.params.id}`, (err, field) => {
         if(err) {
             console.log("Error finding comment. Error: ");
             console.error(err);
@@ -83,7 +89,32 @@ exports.getlikesbyid = (req, res) => {
 };
 
 exports.adddislike = (req, res) => {
-    res.send("Not implemented")
+    let errorfound = false;
+    conn.pool.execute(`SELECT Dislikes from Comments WHERE CommentID = ${req.params.id}`, (err, field) => {
+        if(err) {
+            console.log("Error finding comment. Error: ");
+            console.error(err);
+            res.send({"status": "failed", "error": err});
+            errorfound = true;
+            return;
+        }
+        console.log("Stuff received from Likes request MySQL Query:")
+        console.log(field);
+        let dislikes = field[0].Dislikes;
+        const query = `UPDATE Comments
+                        SET Likes = ${dislikes + 1}
+                        WHERE CommentID = ${req.params.id}`;
+        conn.pool.execute(query, (err, result) => {
+                                if(err) {
+                                    console.log("Error updating dislike count. Error: ");
+                                    console.error(err);
+                                    res.send({"status": "failed", "error": err});
+                                    return;
+                                }
+                                res.send({"status": "good"});
+                            })
+                            
+    })
 }
 exports.getallcomments =  (req, res) => {
     conn.pool.execute(`SELECT * FROM Comments`, (err, results) => {
@@ -113,8 +144,17 @@ exports.addcomment = (req, res) => {
     const Author = SqlString.escape(req.body.Author);
     const Email = SqlString.escape(req.body.Email);
     const Website = SqlString.escape(req.body.Website);
-    conn.pool.execute(`INSERT INTO Comments (OriginPostId, InnerText, Author, Likes, Dislikes, RepliesCount)
-            VALUES (${OriginPostId}, ${InnerText}, ${Author}, 0,0,0)
+    conn.pool.execute(`SELECT * FROM Users WHERE Username = ${Author} AND Email = ${Email} AND Website = ${Website}`, function(err, results) {
+        if(err) {
+            console.log(err);
+            res.send("error: " + err);
+            return;
+        }
+        let AuthorID = results[0];
+        // check if user does not exist.
+        
+        conn.pool.execute(`INSERT INTO Comments (OriginPostId, InnerText, AuthorID, Likes, Dislikes, RepliesCount)
+            VALUES (${OriginPostId}, ${InnerText}, ${AuthorID}, 0,0,0)
         `, function(err, results, fields) {
             if(err) {
                 console.log("An error occurred");
@@ -127,4 +167,6 @@ exports.addcomment = (req, res) => {
             console.log(fields);
             res.send(String(results.insertId));
         })
+    })
+    
 }

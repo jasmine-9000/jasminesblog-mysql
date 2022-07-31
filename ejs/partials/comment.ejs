@@ -5,8 +5,8 @@
     <p class="comment__author">Left by <span id="author_id<%= CommentID %>"> <%= Username %></span></p>
     
     <div class="likes__and__dislikes">
-        <div class="likebutton">&#128077;<p class="comment__likes"><span id="likes_id0001"><%= Likes %></span></p></div>
-        <div class="dislikebutton">	&#128078;<p class="comment__dislikes"><span id="dislikes_id0001"><%= Dislikes %></span></p></div>
+        <div class="likebutton">&#128077;<p class="comment__likes" data-commentid=<%= CommentID %>><span id="likes_id<%= CommentID %>" ><%= Likes %></span></p></div>
+        <div class="dislikebutton">	&#128078;<p class="comment__dislikes" data-commentid=<%= CommentID %>><span id="dislikes_id<%= CommentID %> "><%= Dislikes %></span></p></div>
     </div>
     
 </div>
