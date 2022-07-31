@@ -89,6 +89,7 @@ exports.getlikesbyid = (req, res) => {
 };
 
 exports.adddislike = (req, res) => {
+    console.log("Add dislike button server handler entered.")
     let errorfound = false;
     conn.pool.execute(`SELECT Dislikes from Comments WHERE CommentID = ${req.params.id}`, (err, field) => {
         if(err) {
@@ -102,7 +103,7 @@ exports.adddislike = (req, res) => {
         console.log(field);
         let dislikes = field[0].Dislikes;
         const query = `UPDATE Comments
-                        SET Likes = ${dislikes + 1}
+                        SET Dislikes = ${dislikes + 1}
                         WHERE CommentID = ${req.params.id}`;
         conn.pool.execute(query, (err, result) => {
                                 if(err) {
@@ -144,29 +145,86 @@ exports.addcomment = (req, res) => {
     const Author = SqlString.escape(req.body.Author);
     const Email = SqlString.escape(req.body.Email);
     const Website = SqlString.escape(req.body.Website);
+    // try to find UserID
     conn.pool.execute(`SELECT * FROM Users WHERE Username = ${Author} AND Email = ${Email} AND Website = ${Website}`, function(err, results) {
         if(err) {
             console.log(err);
             res.send("error: " + err);
             return;
         }
-        let AuthorID = results[0];
-        // check if user does not exist.
+        let AuthorID;
         
-        conn.pool.execute(`INSERT INTO Comments (OriginPostId, InnerText, AuthorID, Likes, Dislikes, RepliesCount)
-            VALUES (${OriginPostId}, ${InnerText}, ${AuthorID}, 0,0,0)
-        `, function(err, results, fields) {
-            if(err) {
-                console.log("An error occurred");
-                console.log(err);
-                res.sendStatus(500);
-                return;
-            }
-            console.log("Stuff received back after POST comment:");
-            console.log(results);
-            console.log(fields);
-            res.send(String(results.insertId));
-        })
+        console.log("\r\n\r\n\r\nResult of User search:\r\n\r\n\r\n");
+        console.log(results);
+        console.log("");
+        // check if user does not exist.
+        /*
+            if len(results) = 0: 
+                create new user with credentials:
+                    UserName inputted
+                    Email: inputted
+                    Website: inputted ? 'n/a' if not inputted
+
+        */
+        if(results.length === 0) {
+            const IPADDRESS = SqlString.escape( req.ip); // how to get IP in node
+            const query = `INSERT INTO Users (Username, Email, Website, IPADDRESS)
+                                VALUES (${Author}, ${Email}, ${Website ? Website : '\'n/a\''}, ${IPADDRESS})`
+            console.log("Query to be executed: ");
+            console.log(query)
+            console.log("\r\n\r\n\r\n\r\n");
+            conn.pool.execute(query,
+                                    function(err, newuserresults) {
+                                        if(err) {
+                                            console.log("LOL U DIED LOLOLOL YOU DIED")
+                                            res.send({status: "failed", error: err})
+                                            return;
+                                        }
+                                        console.log(newuserresults);
+                                        AuthorID = newuserresults.insertId;
+                                        conn.pool.execute(`INSERT INTO Comments (OriginPostId, InnerText, AuthorID, Likes, Dislikes, RepliesCount)
+                                            VALUES (${OriginPostId}, ${InnerText}, ${AuthorID}, 0,0,0)`,
+                                            function(err, results, fields) {
+                                            if(err) {
+                                                console.log("\r\n\r\n\r\n\r\n");
+                                                console.log("An error occurred");
+                                                console.log(err);
+                                                console.log("\r\n\r\n\r\n\r\n");
+                                                if(err.code === 'ER_DATA_TOO_LONG') {
+                                                    res.sendStatus(400);
+                                                } else {
+                                                    res.sendStatus(500);
+                                                }
+                                                return;
+                                            }
+                                            console.log("Stuff received back after POST comment:");
+                                            console.log(results);
+                                            console.log(fields);
+                                            res.send(String(results.insertId));
+                                        })
+                                        
+                                    })
+        } else {
+            AuthorID = results[0].UserID;
+            conn.pool.execute(`INSERT INTO Comments (OriginPostId, InnerText, AuthorID, Likes, Dislikes, RepliesCount)
+                VALUES (${OriginPostId}, ${InnerText}, ${AuthorID}, 0,0,0)
+            `, function(err, results, fields) {
+                if(err) {
+                    console.log("An error occurred");
+                    console.log(err);
+                    if(err.code === 'ER_DATA_TOO_LONG') {
+                        res.sendStatus(400);
+                    } else {
+                        res.sendStatus(500);
+                    }
+                    return;
+                }
+                console.log("Stuff received back after POST comment:");
+                console.log(results);
+                console.log(fields);
+                res.send(String(results.insertId));
+            })
+        }    
     })
     
 }

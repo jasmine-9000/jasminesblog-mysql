@@ -3,7 +3,7 @@ console.log("hello world");
 const SERVER_PORT = 5500;
 const SERVER_HOST = "localhost";
 const SERVER_PROTOCOL = "http";
-
+const DEBUG = true;
 
 window.addEventListener('DOMContentLoaded', (e) => {
     document.getElementById('newcomment_form').addEventListener('submit', newcommentformhandler);
@@ -62,7 +62,8 @@ function newcommentformhandler(e) {
         Website: Website,
         Likes: Likes,
         Dislikes: Dislikes,
-        RepliesCount: RepliesCount
+        RepliesCount: RepliesCount,
+        Username: Author
     }
     console.log("Data input: ");
     console.log(data);
@@ -76,6 +77,9 @@ function newcommentformhandler(e) {
         console.log(response);
         if(!response.ok)
         {
+            if(response.status === 400) {
+                throw "Comment too long"
+            }
             if(response.status === 500) {
                 throw "Internal Server error";
             }
@@ -136,11 +140,39 @@ function optionalinputvalidator(input) {
 
 function addlikehandler(e) {
     const ldiv = e.target;
-    console.log("Target: ");
-    console.log(ldiv);
-    const commentid = ldiv.children[0].dataset.commentid;
-    // increase like count in DOM
-    const lcountspan = document.getElementById("likes_id" + commentid);
+    if(DEBUG) {
+
+        console.log("Event: ");
+        console.log(e);
+        console.log("Target div: ");
+        console.log(ldiv);
+        console.log("Type of target using 'typeof': ");
+        console.log(typeof ldiv);
+        console.log("Tag name of target:");
+        console.log(ldiv.tagName);
+    }
+    let commentid;
+    // find comment ID
+    // comment ID is in paragraph tag.
+    if(ldiv.tagName === 'DIV' && ldiv.classList.contains('likebutton')) {
+        console.log('User clicked on div');
+        commentid = ldiv.children[0].dataset.commentid;
+        console.log("Type of comment ID found: " + typeof commentid);
+    } else if(ldiv.tagName === 'SPAN') {
+        commentid = ldiv.parentNode.dataset.commentid;
+    } else if(ldiv.tagName === 'P' && ldiv.classList.contains('comment__likes')) {
+        commentid = ldiv.dataset.commentid;
+    }
+    // Next, increase like count in DOM
+
+    // find span containing the number of likes.
+    const spanid = "likes_id" + commentid;
+    const lcountspan = document.getElementById(spanid);
+    if(DEBUG) {
+        console.log("Span ID searching for: " + spanid);
+        console.log("Div found: ");
+        console.log(lcountspan);
+    }
     let likes = Number(lcountspan.innerText);
     likes+= 1;
     lcountspan.innerText = String(likes);
@@ -159,7 +191,9 @@ function addlikehandler(e) {
     })
     .then(data => {
         if(data.status === 'good') {
-            console.log(`Successfully liked comment #${commentid}`);
+            if(DEBUG) {
+                console.log(`Successfully liked comment #${commentid}`);
+            }
         }
     }).catch(err => {
         alert("Error handling like. Check the console for details.")
@@ -169,6 +203,65 @@ function addlikehandler(e) {
 
 function adddislikehandler(e)
 {
-    alert('Dislike not implemented yet.');
+    const rdiv = e.target;
+    if(DEBUG) {
+
+        console.log("Event: ");
+        console.log(e);
+        console.log("Target div: ");
+        console.log(rdiv);
+        console.log("Type of target using 'typeof': ");
+        console.log(typeof rdiv);
+        console.log("Tag name of target:");
+        console.log(rdiv.tagName);
+    }
+    let commentid;
+    // find comment ID
+    // comment ID is in paragraph tag.
+    if(rdiv.tagName === 'DIV' && rdiv.classList.contains('dislikebutton')) {
+        console.log('User clicked on div');
+        commentid = rdiv.children[0].dataset.commentid;
+        console.log("Type of comment ID found: " + typeof commentid);
+    } else if(rdiv.tagName === 'SPAN') {
+        commentid = rdiv.parentNode.dataset.commentid;
+    } else if(rdiv.tagName === 'P' && rdiv.classList.contains('comment__dislikes')) {
+        commentid = rdiv.dataset.commentid;
+    }
+    // Next, increase like count in DOM
+
+    // find span containing the number of likes.
+    const spanid = "dislikes_id" + commentid;
+    const rcountspan = document.getElementById(spanid);
+    if(DEBUG) {
+        console.log("Span ID searching for: " + spanid);
+        console.log("Div found: ");
+        console.log(rcountspan);
+    }
+    let likes = Number(rcountspan.innerText);
+    likes+= 1;
+    rcountspan.innerText = String(likes);
+    fetch(`${SERVER_PROTOCOL}://${SERVER_HOST}:${SERVER_PORT}/comments/adddislike/${commentid}`,
+    {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'text'
+        }
+    }).then(response => {
+        if(!response.ok)
+        {
+            console.log('');
+        }
+        return response.json()
+    })
+    .then(data => {
+        if(data.status === 'good') {
+            if(DEBUG) {
+                console.log(`Successfully disliked comment #${commentid}`);
+            }
+        }
+    }).catch(err => {
+        alert("Error handling dislike. Check the console for details.")
+        console.error("Error: " + err);
+    })
     return;
 }

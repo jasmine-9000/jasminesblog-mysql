@@ -52,6 +52,9 @@ app.get('/posts', post.getallposts);
 app.get('/newpost', post.newpost);
 app.post('/newpost', post.newpost_receive);
 app.get('/posts/:id', post.getpost)
+app.get('/editpost/:id', post.editpost);
+app.put('/editpost/:id', post.editpost_receive);
+
 
 app.get('/ejssample', (req, res) => {
     const HTML = ejs.render('<%= people.join(",");%>', {people: ['geddy', 'meow']})
@@ -64,11 +67,10 @@ app.put('/comments/addlike/:id', comment.addlike);
 
 app.get('/comments/addlike/:id', comment.getlikesbyid);
 
-app.put('/comments/:id/add_dislike', comment.adddislike)
+app.put('/comments/adddislike/:id', comment.adddislike)
 app.get('/comments', comment.getallcomments)
 
 app.post('/comments', comment.addcomment);
-
 
 
 app.listen(SERVER_PORT, () => {

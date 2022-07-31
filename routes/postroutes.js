@@ -152,3 +152,9 @@ exports.newpost_receive = (req, res) => {
         })
     res.send(`{"meow": "meow"}`);
 };
+exports.editpost = (req, res) => {
+    const postid = req.params.id;    
+}
+exports.editpost_receive = (req, res) => {
+    const postid = req.params.id;    
+}

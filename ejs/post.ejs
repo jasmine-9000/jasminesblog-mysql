@@ -32,11 +32,13 @@
     </div>
     <aside class="comment_box">
         <h1>Leave a Reply</h1>
-        <p class="mewo">Your email address will not be published. Required fields are marked *</p>
+        <p class="mewo">
+            Limit 2500 characters per comment.
+            Your email address will not be published. Required fields are marked *</p>
         <form id="newcomment_form" autocomplete="off" data-postid=<%= PostID %>>
             <div class="form-control-1">
                 <label for="newcomment" class="newcomment_label">Comment*</label>
-                <textarea rows="10" cols="200" name="newcomment" class="newcomment" required></textarea>
+                <textarea rows="10" cols="200" name="newcomment" class="newcomment" maxlength="2500" required></textarea>
             </div>
             <div class="form-control-2">
                 <label for="newcomment_name" class="newcomment_name">Name*</label>
