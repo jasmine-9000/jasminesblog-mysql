@@ -4,38 +4,53 @@
 const {dirname} = require('path');
 const appDir = dirname(require.main.filename);
 
+// get mysql connection
 const conn = require('../mysqlconnection');
+// get utilities required for this module.
 const {grabpost, convertcomment, convertpost} = require('../utils/util');
+// third party modules required 
 const ejs = require('ejs');
 const SqlString = require('sqlstring');
 
+// initialize connection to mysql
 console.log("Initializing connection for posts...");
 conn.init();
 console.log("Connection: " + conn.pool);
-console.log("Connection: " + conn.pool);
+
+// create the function for '/post/:id'. 
 exports.getpost = (req, res) => {
     let HTML = "";
     console.log(conn);
     console.log(conn.pool);
+    // in /post/:id, req.params.id is defined.
+    // execute mysql query to retrieve the post. 
     conn.pool.query(`SELECT * FROM Posts WHERE PostID = ${req.params.id}`,function(err, results, fields) {
+        // error handling
         if(err) {
             console.log("Error:");
             console.error(err);
             res.send("404 error not found");
             return;
         }
+        console.log("Stuff received from MySQL query: ")
         console.log(results);
+        // format data
         let data = grabpost(results, 0);
-        conn.pool.execute(`SELECT * from Comments WHERE OriginPostID = ${req.params.id}`, (err, comments) => {
+        
+        // grab all comments left under that post with MySQL, and the Username with information with it.
+        conn.pool.execute(`SELECT * from Comments INNER JOIN Users ON Users.UserID = Comments.AuthorID AND OriginPostID = ${req.params.id}`, (err, comments) => {
+            // error handling
             if(err) {
                 console.log("Error finding comment. Error: ");
                 console.error(err);
-                res.send(
-                    "404 error"
+                res.send("Error: " + err
                 )
                 return;
             }
+            console.log("Stuff received from new INNER JOIN query:");
+            console.log(comments);
             data.comments = comments
+            // render the data
             const HTML = ejs.renderFile('ejs/post.ejs', data, function(err, string) {
                 if(err) {
                     console.log("Error rendering EJS.");
@@ -62,7 +77,7 @@ exports.getallposts = (req, res) => {
 
         console.log(results);
         let data = grabpost(results, 0);
-        conn.pool.query(`SELECT * FROM Comments WHERE OriginPostID = ${results[0].PostID}`, (err, c_results, c_fields) => {
+        conn.pool.query(`SELECT * FROM Comments INNER JOIN Users ON Users.UserID = Comments.AuthorID AND OriginPostID = ${results[0].PostID}`, (err, c_results, c_fields) => {
             if(err) {
                 console.log(`Error retrieving comments from ${results[0].PostID}: `)
                 console.error(err);

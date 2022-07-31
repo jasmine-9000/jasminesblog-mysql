@@ -34,6 +34,19 @@ function Connection() {
             callback(err, connection);
         });
     };
+    this.executequery = function(querystring, callback) {
+        this.executepromise();
+    }
+    this.executepromise = function() {
+        return new Promise((resolve, reject) => {
+            this.pool.getConnection(function(err, connection) {
+                if(err) {
+                    return reject(err);
+                }
+                resolve(connection);
+            });
+        })
+    }
     console.log("Connection: " + this.pool);
 }
 module.exports = new Connection();
