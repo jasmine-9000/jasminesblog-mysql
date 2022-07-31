@@ -153,8 +153,23 @@ exports.newpost_receive = (req, res) => {
     res.send(`{"meow": "meow"}`);
 };
 exports.editpost = (req, res) => {
-    const postid = req.params.id;    
+    const postid = req.params.id; 
+    const query = `SELECT * FROM Posts WHERE PostID = ${postid}`;
+    conn.pool.execute(query, function(err, results) {
+        const data = grabpost(results,0);
+        const HTML = ejs.renderFile('ejs/editpost.ejs', data, function(err, string) {
+            if(err) {
+                console.log("Error rendering EJS.");
+                console.log(err);
+                res.send("Error Rendering EJS: " + err.message);
+                return;
+            }
+            res.send(string);
+        });
+    });
+    
 }
 exports.editpost_receive = (req, res) => {
-    const postid = req.params.id;    
+    const postid = req.params.id;
+    res.send("Not implemented");
 }
