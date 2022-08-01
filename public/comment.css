@@ -62,6 +62,10 @@ form input[type=submit] {
     display: flex;
     flex-direction: column;
 }
-.form-control-1 {
+.form-control-1.newcomment {
     width: 100%;
+}
+
+form.editform {
+
 }
