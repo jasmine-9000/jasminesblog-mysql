@@ -21,7 +21,7 @@
 <body>
     <%- include('partials/header.ejs') %>
     <h1 class="editpost_header">Edit post</h1> 
-    <form class="editpost_form">
+    <form id="editpost_form01" class="editpost_form" data-postid=<%= PostID %>>
         <div class="form-control-1">
             <label for="title_edit" class="editpost_title">Title:</label>
             <input type="text" name="title_edit" value = "<%= title %>">
@@ -37,6 +37,9 @@
         <div class="form-control-4">
             <label for="conclusion_edit" class="editpost_conclusion">Conclusion</label>
             <input type="text" name="conclusion_edit" value="<%= conclusion %>">
+        </div>
+        <div class="form-control-5">
+            <input class="editpost_submit" type="submit">
         </div>
     </form>
 

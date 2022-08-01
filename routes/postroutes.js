@@ -171,5 +171,22 @@ exports.editpost = (req, res) => {
 }
 exports.editpost_receive = (req, res) => {
     const postid = req.params.id;
-    res.send("Not implemented");
+    const title = SqlString.escape(req.body.title);
+    const subtitle = SqlString.escape(req.body.subtitle);
+    const mainbody = SqlString.escape(req.body.mainbody);
+    const conclusion = SqlString.escape(req.body.conclusion);
+    const query = `UPDATE Posts 
+                    SET PostTitle = ${title}, PostSubtitle = ${subtitle}, PostMainbody = ${mainbody}, PostConclusion=${conclusion}
+                    WHERE PostID = ${postid}`;
+    conn.pool.execute(query, function(err, results) {
+        if(err) {
+            console.log('Error updating post. Error: ');
+            console.log(err);
+            res.sendStatus(500);
+        } else {
+            console.log("Successfully updated database. Results:");
+            console.log(results);
+            res.redirect('/posts/' + postid)
+        }
+    })
 }
