@@ -11,25 +11,28 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Tapestry&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/reset.css">
-    <link rel="stylesheet" href="/general.css">
-    <link rel="stylesheet" href="/nav.css">
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/comment.css">
-    <link rel="stylesheet" href="/post.css">
+    <link rel="stylesheet" href="/public/reset.css">
+    <link rel="stylesheet" href="/public/general.css">
+    <link rel="stylesheet" href="/public/nav.css">
+    <link rel="stylesheet" href="/public/style.css">
+    <link rel="stylesheet" href="/public/comment.css">
+    <link rel="stylesheet" href="/public/post.css">
 </head>
 <body>
     <%- include('partials/header.ejs') %> 
-    <div class="post">
-        <h1 class="post__title"><%= title %></h1>
-        <h2 class="post__subtitle"><%= subtitle %></h2>
-        <main class="post__mainbody">
-            <%= mainbody %>
-        </main>
-        <aside class="post__conclusion">
-            <%= conclusion %>
-        </aside>
-    </div>
+    
+        <div class="post">
+            <h1 class="post__title"><%= title %></h1>
+            <h2 class="post__subtitle"><%= subtitle %></h2>
+            <main class="post__mainbody">
+                <%= mainbody %>
+            </main>
+            <aside class="post__conclusion">
+                <%= conclusion %>
+            </aside>
+            <a class="editpost_link" href="/editpost/<%= PostID %>"><span class="edit_emoji">&#9997;</span>Edit Post</a>
+        </div>
+
     <aside class="comment_box">
         <h1>Leave a Reply</h1>
         <p class="mewo">
@@ -74,7 +77,7 @@
         </div>
         -->
     </div>
-    <script src="/ejs.min.js"></script>
-    <script src="/postscript.js"></script>
+    <script src="/public/ejs.min.js"></script>
+    <script src="/public/postscript.js"></script>
 </body>
 </html>

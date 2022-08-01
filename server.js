@@ -41,11 +41,12 @@ app.use(
 app.use(express.json());
 const conn = require('./mysqlconnection');
 // server stuff
-app.use('/', express.static(__dirname + '/public'));
+app.use('/public/', express.static(__dirname + '/public'));
+app.use('/ejs', express.static(__dirname + '/ejs'));
 app.use('/ejs/partials', express.static(__dirname + '/ejs/partials'));
-/*
+
 app.get('/', (req, res) => {
-    const HTML = ejs.renderFile('/home.ejs', {}, function(err, string) {
+    const HTML = ejs.renderFile(__dirname + '/ejs/home.ejs', {}, function(err, string) {
         if(err) {
             console.log("Error rendering home.ejs");
             console.log(err);
@@ -55,7 +56,7 @@ app.get('/', (req, res) => {
         res.send(string);
     });
     // res.sendFile(__dirname + '/index.html');
-}) */
+}) 
 
 app.get('/posts', post.getallposts);
 app.get('/newpost', post.newpost);

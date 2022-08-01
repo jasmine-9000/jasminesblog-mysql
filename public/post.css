@@ -18,3 +18,16 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.editpost_link,
+.editpost_link:visited,
+.editpost_link:hover {
+    text-decoration: none;
+    color: #212121;
+    font-weight: 700;
+    font-size: 24px;
+    border: 1px solid #212121;
+    border-radius: 7px;
+    padding: 5px;
+    background-color: var(--third-color);
+}
