@@ -19,10 +19,16 @@ nav ul.links__right
 }
 
 nav ul.links__left li,
-nav ul.links__right li {
+nav ul.links__right li,
+nav ul.links__left li a,
+nav ul.links__right li a,
+nav ul.links__left li a:visited,
+nav ul.links__right li a:visited
+ {
     color: white;
     font-weight: 700;
     font-size: 20px;
+    text-decoration: none;
 }
 h1.owner_name {
     color: white;

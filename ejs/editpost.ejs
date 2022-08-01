@@ -20,23 +20,23 @@
 </head>
 <body>
     <%- include('partials/header.ejs') %>
-    <h1 class="editpost">Edit post</h1> 
+    <h1 class="editpost_header">Edit post</h1> 
     <form class="editpost_form">
         <div class="form-control-1">
-            <label for="title">Title:</label>
-            <input type="text" value = "<%= title %>">
+            <label for="title_edit" class="editpost_title">Title:</label>
+            <input type="text" name="title_edit" value = "<%= title %>">
         </div>
         <div class="form-control-2">
-            <label for="subtitle">Subtitle:</label>
-            <input type="text" value= "<%= subtitle %>">
+            <label for="subtitle_edit" class="editpost_subtitle">Subtitle:</label>
+            <input type="text" name="subtitle_edit" value= "<%= subtitle %>">
         </div>
         <div class="form-control-3">
-            <label for="mainbody">Main</label>
-            <textarea><%= mainbody %></textarea>
+            <label for="mainbody_edit" class="editpost_mainbody">Main Body</label>
+            <textarea name="mainbody_edit"><%= mainbody %></textarea>
         </div>
         <div class="form-control-4">
-            <label for="conclusion">Conclusion</label>
-            <input type="text" value="<%= conclusion %>">
+            <label for="conclusion_edit" class="editpost_conclusion">Conclusion</label>
+            <input type="text" name="conclusion_edit" value="<%= conclusion %>">
         </div>
     </form>
 

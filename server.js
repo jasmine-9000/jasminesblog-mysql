@@ -45,7 +45,16 @@ app.use('/', express.static(__dirname + '/public'));
 app.use('/ejs/partials', express.static(__dirname + '/ejs/partials'));
 /*
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    const HTML = ejs.renderFile('/home.ejs', {}, function(err, string) {
+        if(err) {
+            console.log("Error rendering home.ejs");
+            console.log(err);
+            res.send("Error Rendering EJS: " + err.message);
+            return;
+        }
+        res.send(string);
+    });
+    // res.sendFile(__dirname + '/index.html');
 }) */
 
 app.get('/posts', post.getallposts);
