@@ -68,6 +68,17 @@ app.get('/contact', (req, res) => {
         res.send(string);
     });
 })
+app.get('/store', (req, res) => {
+    const HTML = ejs.renderFile(__dirname + '/ejs/store.ejs', {}, function(err, string) {
+        if(err) {
+            console.log("Error rendering home.ejs");
+            console.log(err);
+            res.send("Error Rendering EJS: " + err.message);
+            return;
+        }
+        res.send(string);
+    });
+})
 
 app.get('/posts', post.getallposts);
 app.get('/newpost', post.newpost);
