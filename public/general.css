@@ -15,20 +15,27 @@ a.post_hyperlink:hover {
     color: blue;
 }
 address .phonenumber__container,
-address .discord__container {
+address .discord__container,
+address .github__container {
     margin-left: 24px;
 } 
 address .phonenumber__container {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+address .github__container {
+    margin-top: 20px;
+}
 
 address .phonenumber__header,
-address .discord__header  {
+address .discord__header,
+address .github__header
+{
  font-size: 20px;   
 }
 address .phonenumber,
-address .discord  {
+address .discord,
+address .github {
     font-size: 24px;
 }
 
