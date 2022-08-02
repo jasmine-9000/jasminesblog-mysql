@@ -190,3 +190,20 @@ exports.editpost_receive = (req, res) => {
         }
     })
 }
+
+exports.deletepost = (req, res) => {
+    const postid = req.params.id;
+    const deletecommentsquery = `DELETE FROM Comments WHERE Comments.OriginPostID = ${postid};`;
+    const deletepostquery = `DELETE FROM Posts WHERE Posts.PostID = ${postid};`;
+    console.log(deletepostquery);
+    conn.pool.execute(deletepostquery + deletecommentsquery, function(err, results) {
+        if(err) {
+            console.log('Error deleting comments. Error: ');
+            console.log(err);
+            res.sendStatus(500);
+        } else {
+            console.log('Successfully deleted comments. ')
+            res.redirect('/posts');
+        }
+    })
+}

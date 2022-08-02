@@ -64,6 +64,7 @@ app.post('/newpost', post.newpost_receive);
 app.get('/posts/:id', post.getpost)
 app.get('/editpost/:id', post.editpost);
 app.put('/editpost/:id', post.editpost_receive);
+app.get('/deletepost/:id', post.deletepost);
 
 
 app.get('/ejssample', (req, res) => {

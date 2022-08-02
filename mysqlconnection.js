@@ -25,7 +25,8 @@ function Connection() {
                 database: 'MyPosts',
                 user: USERNAME,
                 password: PASSWORD,
-                debug: true
+                debug: false,
+                multipleStatements: true
             }
         )
     }
