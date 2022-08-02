@@ -14,3 +14,21 @@ a.post_hyperlink:hover {
     text-decoration:underline;
     color: blue;
 }
+address .phonenumber__container,
+address .discord__container {
+    margin-left: 24px;
+} 
+address .phonenumber__container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+address .phonenumber__header,
+address .discord__header  {
+ font-size: 20px;   
+}
+address .phonenumber,
+address .discord  {
+    font-size: 24px;
+}
+

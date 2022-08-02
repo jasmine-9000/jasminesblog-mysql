@@ -57,6 +57,17 @@ app.get('/', (req, res) => {
     });
     // res.sendFile(__dirname + '/index.html');
 }) 
+app.get('/contact', (req, res) => {
+    const HTML = ejs.renderFile(__dirname + '/ejs/contact.ejs', {}, function(err, string) {
+        if(err) {
+            console.log("Error rendering home.ejs");
+            console.log(err);
+            res.send("Error Rendering EJS: " + err.message);
+            return;
+        }
+        res.send(string);
+    });
+})
 
 app.get('/posts', post.getallposts);
 app.get('/newpost', post.newpost);
