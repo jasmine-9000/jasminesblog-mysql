@@ -76,6 +76,17 @@ exports.getallposts = (req, res) => {
         }
 
         console.log(results);
+        const HTML = ejs.renderFile('ejs/allposts.ejs', {posts: results}, function(err, string) {
+            if(err) {
+                console.log("Error rendering 'allposts.ejs'. Error: ");
+                console.log(err);
+                res.sendStatus(500);
+                return;
+            } else {
+                res.send(string);
+            }
+        })
+        /*
         let data = grabpost(results, 0);
         conn.pool.query(`SELECT * FROM Comments INNER JOIN Users ON Users.UserID = Comments.AuthorID AND OriginPostID = ${results[0].PostID}`, (err, c_results, c_fields) => {
             if(err) {
@@ -102,6 +113,8 @@ exports.getallposts = (req, res) => {
                 res.send(string);
             });
         } );
+        */
+
         /*
         data.comments = [{
                             CommentID: 1,

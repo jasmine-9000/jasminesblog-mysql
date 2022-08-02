@@ -1,0 +1,16 @@
+h1.latest_header {
+    font-size: 52px;
+    font-weight: 700;
+    padding: 25px 35px 25px 35px;
+}
+a.post_hyperlink,
+a.post_hyperlink:visited,
+a.post_hyperlink:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.readmore {
+    text-decoration:underline;
+    color: blue;
+}
