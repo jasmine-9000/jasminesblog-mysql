@@ -47,7 +47,6 @@ function Connection() {
         })
         rl.on('close', function() {
             console.log("Finished");
-
         })
     }
     this.acquire = function(callback) {
