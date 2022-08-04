@@ -230,9 +230,20 @@ exports.addcomment = (req, res) => {
 }
 
 exports.deletecommentbyid = (req, res) => {
-
-    res.send("Not implemented yet");
+    const postid = req.params.id;
+    const deletecommentquery = `DELETE FROM Comments WHERE Comments.CommentID = ${postid};`;
+    conn.pool.execute(deletecommentquery, function(err, result) {
+        if(err) {
+            console.log("Error deleting comment. Error: ");
+            console.log(err);
+            res.sendStatus(500);
+        } else {
+            console.log("Successfully deleted comment.");
+            res.sendStatus(200);
+        }
+    })
 }
 exports.editcommentbyid = (req, res) => {
     res.send("Not implemented yet");
+    
 }

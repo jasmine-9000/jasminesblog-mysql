@@ -1,4 +1,4 @@
-<div class="comment" data-commentid=<%= CommentID %>>
+<div class="comment" id="<%= 'comment__id' + CommentID%>">
     <p class="comment__innertext">
         <%= InnerText %>
     </p>
@@ -7,6 +7,8 @@
     <div class="likes__and__dislikes">
         <div class="likebutton">&#128077;<p class="comment__likes" data-commentid=<%= CommentID %>><span id="likes_id<%= CommentID %>" ><%= Likes %></span></p></div>
         <div class="dislikebutton">	&#128078;<p class="comment__dislikes" data-commentid=<%= CommentID %>><span id="dislikes_id<%= CommentID %>"><%= Dislikes %></span></p></div>
+        <div class="deletebutton" data-commentid=<%= CommentID %>>&#128465;</div>
     </div>
+    
     
 </div>

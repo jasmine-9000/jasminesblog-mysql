@@ -17,6 +17,10 @@ window.addEventListener('DOMContentLoaded', (e) => {
     DislikeButtons.forEach((dislikebutton) => {
         dislikebutton.addEventListener('click', adddislikehandler);
     })
+    const DeleteButtons = Array.from(document.querySelectorAll('.deletebutton'));
+    DeleteButtons.forEach((deletebutton) => {
+        deletebutton.addEventListener('click', deletecommenthandler);
+    })
 })
 
 // on form submit, do stuff.
@@ -264,4 +268,32 @@ function adddislikehandler(e)
         console.error("Error: " + err);
     })
     return;
+}
+
+function deletecommenthandler(e) {
+    const commentid = e.target.dataset.commentid;// this one might be less complicated. 
+    fetch(`${SERVER_PROTOCOL}://${SERVER_HOST}:${SERVER_PORT}/comments/${commentid}`,
+    {method: 'DELETE'}).
+    then(
+        response => {
+            if(!response.ok) {
+                if(response.status === 500) {
+                    throw "Internal Server Error";
+                } else {
+                    throw "Could not Delete comment for some reason";
+                }
+            }
+            removecommentfromDOM(commentid);
+        }
+    ).catch(err => {
+        alert(err);
+    })
+}
+
+function removecommentfromDOM(commentid) {
+    const elementToRemove = document.getElementById(`comment__id${commentid}`);
+    console.log(elementToRemove);
+    const commentgrid = document.querySelector('.comment__grid');
+    commentgrid.removeChild(elementToRemove);
+    
 }
