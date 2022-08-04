@@ -16,22 +16,10 @@ const {grabpost, convertcomment, convertpost} = require('./utils/util');
 
 const SERVER_PORT = 5500;
 
-/**
-    // DATABASE VARIABLES
-    const PORT = process.env.DB_PORT;
-    const XPROTOCOLPORT = process.env.DB_XPROTOCOLPORT;
-    const ROOT_PASSWORD = process.env.DB_ROOT_PASSWORD;
-    
-    const HOST = process.env.DB_HOST;
-    const USERNAME = process.env.DB_USERNAME;
-    const PASSWORD = process.env.DB_PASSWORD;
-    const WINDOWS_SERVICE_NAME = process.env.WINDOWS_SERVICE_NAME_MYSQL;
-    const DBNAME = process.env.DB_NAME;
-*/
-
 // MAIN APP CREATION
 
 const app = express();
+
 // MIDDLEWARE
 app.use(
     express.urlencoded({
@@ -39,12 +27,15 @@ app.use(
     })
 )
 app.use(express.json());
-const conn = require('./mysqlconnection');
-// server stuff
+
+
+// STATIC SERVERS
 app.use('/public/', express.static(__dirname + '/public'));
 app.use('/ejs', express.static(__dirname + '/ejs'));
 app.use('/ejs/partials', express.static(__dirname + '/ejs/partials'));
 
+
+// ROUTE SETUP
 app.get('/', (req, res) => {
     const HTML = ejs.renderFile(__dirname + '/ejs/home.ejs', {}, function(err, string) {
         if(err) {
@@ -87,25 +78,21 @@ app.get('/posts/:id', post.getpost)
 app.get('/editpost/:id', post.editpost);
 app.put('/editpost/:id', post.editpost_receive);
 app.get('/deletepost/:id', post.deletepost);
-
 app.get('/ejssample', (req, res) => {
     const HTML = ejs.render('<%= people.join(",");%>', {people: ['geddy', 'meow']})
     console.log(HTML);
     res.send(HTML);
 })
-
 app.get('/comments/:id', comment.getcommentbyid)
 app.put('/comments/addlike/:id', comment.addlike);
-
 app.get('/comments/addlike/:id', comment.getlikesbyid);
-
 app.put('/comments/adddislike/:id', comment.adddislike)
 app.get('/comments', comment.getallcomments)
-
 app.post('/comments', comment.addcomment);
 app.put('/comments/:id', comment.editcommentbyid);
 app.delete('/comments/:id', comment.deletecommentbyid);
 
+// Make server listen on port. 
 app.listen(SERVER_PORT, () => {
     console.log(`Server running on ${SERVER_PORT}... Better go catch it!`)
 })

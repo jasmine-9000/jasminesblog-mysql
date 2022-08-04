@@ -1,4 +1,8 @@
+const fs = require('fs');
 const mysql = require('mysql2');
+const readline = require('readline');
+// grab environment variables.
+// some of them 
 const PORT = process.env.DB_PORT;
 const XPROTOCOLPORT = process.env.DB_XPROTOCOLPORT;
 const ROOT_PASSWORD = process.env.DB_ROOT_PASSWORD;
@@ -22,13 +26,29 @@ function Connection() {
             {
                 connectionLimit: POOLSIZE,
                 host: HOST,
-                database: 'MyPosts',
+                database: DBNAME,
                 user: USERNAME,
                 password: PASSWORD,
                 debug: false,
                 multipleStatements: true
             }
         )
+        // create tables if not already there.
+        let rl = readline.createInterface({
+            input:  fs.createReadStream('./CreatePostTablesQuery.sql'),
+            terminal: false
+        });
+        let pool = this.pool;
+        rl.on('line', function(chunk) {
+            
+            pool.query(chunk.toString('ascii'), function(err, sets, fields) {
+                if(err) console.log(err);
+            });
+        })
+        rl.on('close', function() {
+            console.log("Finished");
+
+        })
     }
     this.acquire = function(callback) {
         this.pool.getConnection(function(err, connection) {
