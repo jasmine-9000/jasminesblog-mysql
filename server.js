@@ -88,7 +88,6 @@ app.get('/editpost/:id', post.editpost);
 app.put('/editpost/:id', post.editpost_receive);
 app.get('/deletepost/:id', post.deletepost);
 
-
 app.get('/ejssample', (req, res) => {
     const HTML = ejs.render('<%= people.join(",");%>', {people: ['geddy', 'meow']})
     console.log(HTML);
@@ -104,7 +103,8 @@ app.put('/comments/adddislike/:id', comment.adddislike)
 app.get('/comments', comment.getallcomments)
 
 app.post('/comments', comment.addcomment);
-
+app.put('/comments/:id', comment.editcommentbyid);
+app.delete('/comments/:id', comment.deletecommentbyid);
 
 app.listen(SERVER_PORT, () => {
     console.log(`Server running on ${SERVER_PORT}... Better go catch it!`)

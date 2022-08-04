@@ -228,3 +228,11 @@ exports.addcomment = (req, res) => {
     })
     
 }
+
+exports.deletecommentbyid = (req, res) => {
+
+    res.send("Not implemented yet");
+}
+exports.editcommentbyid = (req, res) => {
+    res.send("Not implemented yet");
+}

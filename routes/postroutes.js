@@ -209,7 +209,7 @@ exports.deletepost = (req, res) => {
     const deletecommentsquery = `DELETE FROM Comments WHERE Comments.OriginPostID = ${postid};`;
     const deletepostquery = `DELETE FROM Posts WHERE Posts.PostID = ${postid};`;
     console.log(deletepostquery);
-    conn.pool.execute(deletepostquery + deletecommentsquery, function(err, results) {
+    conn.pool.execute(deletepostquery, function(err, results) {
         if(err) {
             console.log('Error deleting comments. Error: ');
             console.log(err);
