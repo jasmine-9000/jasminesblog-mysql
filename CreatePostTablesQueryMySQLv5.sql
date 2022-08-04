@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS sql3509839;/* if MyPosts doesn't exist, create a database for it. */ 
+CREATE DATABASE IF NOT EXISTS sql3509839;/* freesqldatabase only lets you use one database. */ 
 USE sql3509839;
 CREATE TABLE IF NOT EXISTS Posts ( PostID int AUTO_INCREMENT NOT NULL PRIMARY KEY, PostTitle MEDIUMTEXT NOT NULL,PostSubtitle MEDIUMTEXT,PostMainBody LONGTEXT,PostConclusion MEDIUMTEXT,PostCommentCount INT,DateAdded DATETIME );
 CREATE TABLE IF NOT EXISTS Users ( UserID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,Username varchar(250) NOT NULL,Email varchar(250) NOT NULL,Website varchar(250), IPADDRESS varchar(250)); 
