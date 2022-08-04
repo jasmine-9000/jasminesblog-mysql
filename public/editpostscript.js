@@ -4,7 +4,7 @@ const SERVER_PORT = 5500;
 const SERVER_HOST = "localhost";
 const SERVER_PROTOCOL = "http";
 */
-const SERVER_PORT = 80;
+const SERVER_PORT = null;
 const SERVER_HOST = "jasmineblog.herokuapp.com";
 const SERVER_PROTOCOL = "https";
 const DEBUG = true;
@@ -31,7 +31,7 @@ function editpostformhandler(e) {
     };
     console.log("Data to be sent: ");
     console.log(data);
-    fetch(`${SERVER_PROTOCOL}://${SERVER_HOST}:${SERVER_PORT}/editpost/${PostID}`,
+    fetch(`${SERVER_PROTOCOL}://${SERVER_HOST}${SERVER_PORT ? ':' + SERVER_PORT : ''}/editpost/${PostID}`,
     {
         method: 'PUT',
         headers: {

@@ -5,7 +5,7 @@ const SERVER_HOST = "localhost";
 const SERVER_PROTOCOL = "http";
 */
 
-const SERVER_PORT = 80;
+const SERVER_PORT = null;
 const SERVER_HOST = "jasminesblog.herokuapp.com";
 const SERVER_PROTOCOL = "https";
 
@@ -77,7 +77,7 @@ function newcommentformhandler(e) {
     }
     console.log("Data input: ");
     console.log(data);
-    fetch(`${SERVER_PROTOCOL}://${SERVER_HOST}:${SERVER_PORT}/comments`, {
+    fetch(`${SERVER_PROTOCOL}://${SERVER_HOST}${SERVER_PORT ? ':' + SERVER_PORT : ''}/comments`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -107,7 +107,7 @@ function addnewcommenttoDOM(comment, CommentID) {
     let newdata = comment;
     newdata.CommentID = CommentID;
     // render comment HTML from comment.js.
-    fetch(`${SERVER_PROTOCOL}://${SERVER_HOST}:${SERVER_PORT}/ejs/partials/comment.ejs`)
+    fetch(`${SERVER_PROTOCOL}://${SERVER_HOST}${SERVER_PORT ? ':' + SERVER_PORT : ''}/ejs/partials/comment.ejs`)
         .then(res => res.text())
         .then(template => {
             let HTML = ejs.render(template, newdata);
@@ -186,7 +186,7 @@ function addlikehandler(e) {
     let likes = Number(lcountspan.innerText);
     likes+= 1;
     lcountspan.innerText = String(likes);
-    fetch(`${SERVER_PROTOCOL}://${SERVER_HOST}:${SERVER_PORT}/comments/addlike/${commentid}`,
+    fetch(`${SERVER_PROTOCOL}://${SERVER_HOST}${SERVER_PORT ? ':' + SERVER_PORT : ''}/comments/addlike/${commentid}`,
     {
         method: 'PUT',
         headers: {
@@ -250,7 +250,7 @@ function adddislikehandler(e)
     let likes = Number(rcountspan.innerText);
     likes+= 1;
     rcountspan.innerText = String(likes);
-    fetch(`${SERVER_PROTOCOL}://${SERVER_HOST}:${SERVER_PORT}/comments/adddislike/${commentid}`,
+    fetch(`${SERVER_PROTOCOL}://${SERVER_HOST}${SERVER_PORT ? ':' + SERVER_PORT : ''}/comments/adddislike/${commentid}`,
     {
         method: 'PUT',
         headers: {
@@ -278,7 +278,7 @@ function adddislikehandler(e)
 
 function deletecommenthandler(e) {
     const commentid = e.target.dataset.commentid;// this one might be less complicated. 
-    fetch(`${SERVER_PROTOCOL}://${SERVER_HOST}:${SERVER_PORT}/comments/${commentid}`,
+    fetch(`${SERVER_PROTOCOL}://${SERVER_HOST}${SERVER_PORT ? ':' + SERVER_PORT : ''}/comments/${commentid}`,
     {method: 'DELETE'}).
     then(
         response => {
