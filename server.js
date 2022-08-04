@@ -14,7 +14,7 @@ const {grabpost, convertcomment, convertpost} = require('./utils/util');
 
 // SERVER VARIABLES
 
-const SERVER_PORT = process.env.PORT | 5500;
+const SERVER_PORT = process.env.PORT || 5500;
 
 // MAIN APP CREATION
 
