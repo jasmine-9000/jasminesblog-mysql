@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS MyPosts;/* # if MyPosts doesn't exist, create a database for it. */ 
+CREATE DATABASE IF NOT EXISTS MyPosts;/* if MyPosts doesn't exist, create a database for it. */ 
 USE MyPosts;
 CREATE TABLE IF NOT EXISTS Posts ( PostID int AUTO_INCREMENT NOT NULL PRIMARY KEY, PostTitle MEDIUMTEXT NOT NULL,PostSubtitle MEDIUMTEXT,PostMainBody LONGTEXT,PostConclusion MEDIUMTEXT,PostCommentCount INT,DateAdded DATETIME DEFAULT CURRENT_TIMESTAMP,DateModified DATETIME ON UPDATE CURRENT_TIMESTAMP );
 CREATE TABLE IF NOT EXISTS Users (UserID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,Username varchar(250) NOT NULL,Email varchar(250) NOT NULL,Website varchar(250), IPADDRESS varchar(250)); 
