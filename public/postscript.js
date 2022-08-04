@@ -1,8 +1,14 @@
 console.log("hello world");
-
+/*
 const SERVER_PORT = 5500;
 const SERVER_HOST = "localhost";
 const SERVER_PROTOCOL = "http";
+*/
+
+const SERVER_PORT = 80;
+const SERVER_HOST = "jasminesblog.herokuapp.com";
+const SERVER_PROTOCOL = "https";
+
 const DEBUG = true;
 
 window.addEventListener('DOMContentLoaded', (e) => {
@@ -295,5 +301,5 @@ function removecommentfromDOM(commentid) {
     console.log(elementToRemove);
     const commentgrid = document.querySelector('.comment__grid');
     commentgrid.removeChild(elementToRemove);
-    
+
 }
