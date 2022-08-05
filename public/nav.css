@@ -1,16 +1,19 @@
 
 nav {
     background-color: var(--primary-color);
-    height: 100px;;
+}
+nav .desktoplinks {
+
     display:flex;
     align-items: center;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    height: 100px;
 }
 
-nav ul.links__left,
-nav ul.links__right
+nav .desktoplinks ul.links__left,
+nav .desktoplinks ul.links__right
  {
     display:flex;
     flex-direction: row;
@@ -18,12 +21,12 @@ nav ul.links__right
     column-gap: 50px;
 }
 
-nav ul.links__left li,
-nav ul.links__right li,
-nav ul.links__left li a,
-nav ul.links__right li a,
-nav ul.links__left li a:visited,
-nav ul.links__right li a:visited
+nav .desktoplinks ul.links__left li,
+nav .desktoplinks ul.links__right li,
+nav .desktoplinks ul.links__left li a,
+nav .desktoplinks ul.links__right li a,
+nav .desktoplinks ul.links__left li a:visited,
+nav .desktoplinks ul.links__right li a:visited
  {
     color: white;
     font-weight: 700;
@@ -35,4 +38,82 @@ h1.owner_name {
     font-weight: 700;
     font-size: 32px;
     margin: 0 32px;
+    text-align: center;
+}
+nav .mobilelinks {
+    display: none;
+}
+
+@media screen and (max-width: 880px) {
+    nav .mobilelinks {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+    nav .mobilelinks .hamburger {
+        position: relative;
+        margin-top: calc(var(--height-space));
+        margin-bottom: calc(var(--height-space));
+        /* margin-top: 30px;
+        margin-bottom: 30px;
+        margin-left: 30px;
+        margin-right: 30px; */
+        margin-left: auto;
+        margin-right: auto;
+        
+    }
+    nav .mobilelinks .hamburger,
+    nav .mobilelinks .hamburger::after,
+    nav .mobilelinks .hamburger::before 
+    {
+        height: var(--height);
+        width: var(--width);
+        background-color: white;
+    }
+    nav .mobilelinks .hamburger::after,
+    nav .mobilelinks .hamburger::before {
+        position: absolute;
+        content: '';
+        z-index: 9;
+    }
+    :root {
+        --height-space: 8px;
+        --height: 3px;
+        --width: 30px;
+    }
+    nav .mobilelinks .hamburger::after {transform: translateY(var(--height-space))}
+    nav .mobilelinks .hamburger::before {transform: translateY(calc(-1*var(--height-space)))}
+
+
+    nav .mobilelinks h1.owner_name {
+        margin-bottom: 8px;
+    }
+
+    nav .mobilelinks ul.links {
+        margin: 16px 16px 0px 16px;
+        text-align: center;
+    }
+    nav .mobilelinks ul.links li {
+        font-weight: 700;
+        font-size: 20px;
+        color: white;
+    }
+    nav .mobilelinks ul.links li:not(:last-child) {
+        margin-bottom: 8px;
+    }
+    nav .mobilelinks ul.links li a,
+    nav .mobilelinks ul.links li a:hover,
+    nav .mobilelinks ul.links li a:visited
+    {
+        color: white;
+        text-decoration: none;
+    }
+
+
+    /* disable desktop links */
+    nav .desktoplinks {
+        display: none;
+        
+    }
 }

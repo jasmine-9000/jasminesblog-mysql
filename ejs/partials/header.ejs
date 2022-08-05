@@ -1,13 +1,28 @@
 <nav>
-    <ul class="links__left">
-        <li><a href="/">Home</a></li>
-        <li><a href="/">About</a></li>
-        <li><a href="/posts">Latest</a></li>
-    </ul>
-    <h1 class="owner_name">Jasmine's Blog</h1>
-    <ul class="links__right">
-        <li><a href="/posts">Posts</a></li>
-        <li><a href="/store">Store</a></li>
-        <li><a href="/contact">Contact</a></li>
-    </ul>
+    <div class="desktoplinks">
+        <ul class="links__left">
+            <li><a href="/">Home</a></li>
+            <li><a href="/">About</a></li>
+            <li><a href="/posts">Latest</a></li>
+        </ul>
+        <h1 class="owner_name">Jasmine's Blog</h1>
+        <ul class="links__right">
+            <li><a href="/posts">Posts</a></li>
+            <li><a href="/store">Store</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </div>
+    <div class="mobilelinks">
+        <h1 class="owner_name">Jasmine's Blog</h1>
+        <div id="hamburgerbutton" class="hamburger"></div>
+        <ul class="links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/">About</a></li>
+            <li><a href="/posts">Latest</a></li>
+            <li><a href="/posts">Posts</a></li>
+            <li><a href="/store">Store</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </div>
+    <script src="/public/hamburger.js"></script>
 </nav>    

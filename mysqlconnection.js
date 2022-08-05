@@ -35,7 +35,7 @@ function Connection() {
         )
         // create tables if not already there.
         let rl = readline.createInterface({
-            input:  fs.createReadStream('./CreatePostTablesQueryMySQLv5.sql'),
+            input:  fs.createReadStream('./CreatePostTablesQuery.sql'),
             terminal: false
         });
         let pool = this.pool;
