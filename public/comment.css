@@ -22,7 +22,7 @@
 form {
     display:flex;
     flex-flow: row wrap;
-    width: 1000px;
+    width: 100%;
 }
 
 form input[type=submit] {
@@ -92,7 +92,10 @@ form.editpost_form .form-control-5 {
     width: 100%;
     margin: 0 auto;
 }
-
+form#newcomment_form .newcomment textarea {
+    height: 10ch;
+    width: 150ch;
+}
 .editpost_title,
 .editpost_subtitle{
     font-size: 32px;
@@ -114,4 +117,26 @@ form.editpost_form .form-control-5 {
 form.editpost_form .editpost_submit {
     align-self: center;
     margin-top: 10px;
+}
+
+@media screen and (max-width: 880px) {
+    aside.comment_box {
+        display: flex;
+        flex-direction: column;
+        text-align:center;
+    }
+    aside.comment_box h1 {
+        
+        box-shadow: none;
+    }
+    form#newcomment_form {
+        padding: 0 var(--comment-box-padding);
+        width: calc(100% - 2*var(--comment-box-padding))
+    }
+    form#newcomment_form .newcomment textarea {
+        width: 100%;
+    }
+    :root {
+        --comment-box-padding: 10px;
+    }
 }
