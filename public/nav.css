@@ -109,7 +109,9 @@ nav .mobilelinks {
         color: white;
         text-decoration: none;
     }
-
+    nav .mobilelinks ul.links li a:visited {
+        box-shadow: 1px;
+    }
 
     /* disable desktop links */
     nav .desktoplinks {
