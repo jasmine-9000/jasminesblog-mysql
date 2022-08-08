@@ -43,3 +43,7 @@ address .github {
 .hidden {
     display: none;
 }
+
+.display {
+    display: block;
+}
