@@ -71,6 +71,7 @@ app.get('/store', (req, res) => {
     });
 })
 
+// POST ROUTES
 app.get('/posts', post.getallposts);
 app.get('/newpost', post.newpost);
 app.post('/newpost', post.newpost_receive);
