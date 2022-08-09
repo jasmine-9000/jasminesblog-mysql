@@ -8,13 +8,6 @@
 .comment {
     border: 1px solid red;
 }
-
-/* for working on comments: */
-body > .comment {
-    border: none;
-    margin: 20px;
-}
-
 .likes__and__dislikes {
     display: flex;
     flex-direction: row;
@@ -24,6 +17,15 @@ body > .comment {
     display: flex;
     flex-direction: row;
 }
+
+/* for working on comments: */
+body > .comment {
+    border: none;
+    margin: 20px;
+    background-color: #565656;
+}
+
+
 
 /* comment form styling */
 form {
