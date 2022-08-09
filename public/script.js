@@ -1,9 +1,11 @@
 console.log("hello world");
 
-const SERVER_PORT = 5500;
-const SERVER_HOST = "localhost";
-const SERVER_PROTOCOL = "http";
-
+// const SERVER_PORT = 5500;
+// const SERVER_HOST = "localhost";
+// const SERVER_PROTOCOL = "http";
+const SERVER_PORT = null;
+const SERVER_HOST = "jasminesblog.herokuapp.com";
+const SERVER_PROTOCOL = "https";
 
 window.addEventListener('DOMContentLoaded', (e) => {
     document.getElementById('newpost_form').addEventListener('submit', newpostformhandler);
@@ -32,7 +34,7 @@ function newpostformhandler(e) {
         'mainbody': mainbody.value,
         'conclusion': conclusion.value
     }
-    fetch(`${SERVER_PROTOCOL}://${SERVER_HOST}:${SERVER_PORT}/newpost`, {
+    fetch(`${SERVER_PROTOCOL}://${SERVER_HOST}:${SERVER_PORT ? ':' + SERVER_PORT : ''}/newpost`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -62,7 +64,7 @@ function newcommentformhandler(e) {
         Dislikes: Dislikes,
         RepliesCount: RepliesCount
     }
-    fetch(`${SERVER_PROTOCOL}://${SERVER_HOST}:${SERVER_PORT}/comments`, {
+    fetch(`${SERVER_PROTOCOL}://${SERVER_HOST}:${SERVER_PORT ? ':' + SERVER_PORT : ''}/comments`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
