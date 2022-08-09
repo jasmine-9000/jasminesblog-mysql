@@ -90,8 +90,10 @@ function newcommentformhandler(e) {
             if(response.status === 400) {
                 throw "Comment too long"
             }
-            if(response.status === 500) {
+            else if(response.status === 500) {
                 throw "Internal Server error";
+            } else {
+                throw response.statusText;
             }
         }
         return response.text();
