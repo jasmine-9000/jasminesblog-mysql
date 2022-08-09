@@ -1,13 +1,13 @@
 console.log("hello world");
 
-const SERVER_PORT = 5500;
-const SERVER_HOST = "localhost";
-const SERVER_PROTOCOL = "http";
+// const SERVER_PORT = 5500;
+// const SERVER_HOST = "localhost";
+// const SERVER_PROTOCOL = "http";
 
 
-// const SERVER_PORT = null;
-// const SERVER_HOST = "jasminesblog.herokuapp.com";
-// const SERVER_PROTOCOL = "https";
+const SERVER_PORT = null;
+const SERVER_HOST = "jasminesblog.herokuapp.com";
+const SERVER_PROTOCOL = "https";
 
 const DEBUG = true;
 
