@@ -34,12 +34,12 @@ app.use(express.json());
 // STATIC SERVERS
 app.use('/public/', express.static(__dirname + '/public'));
 app.use('/ejs', express.static(__dirname + '/ejs'));
-app.use('/ejs/partials', express.static(__dirname + '/ejs/partials'));
+app.use('/ejs/partials', express.static(__dirname + '/views/partials'));
 
 
 // ROUTE SETUP
 app.get('/', (req, res) => {
-    const HTML = ejs.renderFile(__dirname + '/ejs/home.ejs', {}, function(err, string) {
+    const HTML = ejs.renderFile(__dirname + '/views/home.ejs', {}, function(err, string) {
         if(err) {
             console.log("Error rendering home.ejs");
             console.log(err);
@@ -51,7 +51,7 @@ app.get('/', (req, res) => {
     // res.sendFile(__dirname + '/index.html');
 }) 
 app.get('/contact', (req, res) => {
-    const HTML = ejs.renderFile(__dirname + '/ejs/contact.ejs', {}, function(err, string) {
+    const HTML = ejs.renderFile(__dirname + '/views/contact.ejs', {}, function(err, string) {
         if(err) {
             console.log("Error rendering home.ejs");
             console.log(err);
@@ -62,7 +62,7 @@ app.get('/contact', (req, res) => {
     });
 })
 app.get('/store', (req, res) => {
-    const HTML = ejs.renderFile(__dirname + '/ejs/store.ejs', {}, function(err, string) {
+    const HTML = ejs.renderFile(__dirname + '/views/store.ejs', {}, function(err, string) {
         if(err) {
             console.log("Error rendering home.ejs");
             console.log(err);

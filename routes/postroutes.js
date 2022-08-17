@@ -51,7 +51,7 @@ exports.getpost = (req, res) => {
             console.log(comments);
             data.comments = comments
             // render the data
-            const HTML = ejs.renderFile('ejs/post.ejs', data, function(err, string) {
+            const HTML = ejs.renderFile('views/post.ejs', data, function(err, string) {
                 if(err) {
                     console.log("Error rendering EJS.");
                     console.log(err);
@@ -76,7 +76,7 @@ exports.getallposts = (req, res) => {
         }
 
         console.log(results);
-        const HTML = ejs.renderFile('ejs/allposts.ejs', {posts: results}, function(err, string) {
+        const HTML = ejs.renderFile('views/allposts.ejs', {posts: results}, function(err, string) {
             if(err) {
                 console.log("Error rendering 'allposts.ejs'. Error: ");
                 console.log(err);
@@ -170,7 +170,7 @@ exports.editpost = (req, res) => {
     const query = `SELECT * FROM Posts WHERE PostID = ${postid}`;
     conn.pool.execute(query, function(err, results) {
         const data = grabpost(results,0);
-        const HTML = ejs.renderFile('ejs/editpost.ejs', data, function(err, string) {
+        const HTML = ejs.renderFile('views/editpost.ejs', data, function(err, string) {
             if(err) {
                 console.log("Error rendering EJS.");
                 console.log(err);

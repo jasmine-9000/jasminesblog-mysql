@@ -30,7 +30,7 @@ exports.getcommentbyid = (req, res) => {
         let data = convertcomment(results[0]);
         console.log(data);
         data.CommentID = req.params.id;
-        const HTML = ejs.renderFile(appDir + '/ejs/singularcomment.ejs', {comment: data}, function(err, string) {
+        const HTML = ejs.renderFile(appDir + '/views/singularcomment.ejs', {comment: data}, function(err, string) {
             if(err) {
                 console.log("Error rendering Comment EJS.");
                 console.log(err);
@@ -125,7 +125,7 @@ exports.getallcomments =  (req, res) => {
             res.send("Internal Server Error", 503)
             return;
         }
-        const HTML = ejs.renderFile( __dirname + '/ejs/allcomments.ejs', {comments: results}, (err, string) => {
+        const HTML = ejs.renderFile( __dirname + '/views/allcomments.ejs', {comments: results}, (err, string) => {
             if(err) {
                 console.log("Error rendering all comment EJS file. Error: ");
                 console.log(err);
