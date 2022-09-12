@@ -1,6 +1,7 @@
 const fs = require('fs');
 const mysql = require('mysql2');
 const readline = require('readline');
+const path = require('path');
 // grab environment variables.
 // some of them 
 const PORT = process.env.DB_PORT;
@@ -21,7 +22,7 @@ function Connection() {
     console.log("Database Password:", PASSWORD);
 
     this.pool = null;
-    this.init = function() {
+    this.init = async function() {
         this.pool = mysql.createPool(
             {
                 connectionLimit: POOLSIZE,
@@ -33,9 +34,37 @@ function Connection() {
                 multipleStatements: true
             }
         )
+        let pool = this.pool;
+        function process(data, pool) {
+            pool.query(data, (err, sets, fields) => {
+                if(err) throw err;
+            })
+        }
         // create tables if not already there.
+        fs.readFile(path.join(__dirname, '/sql/Users.sql'),"ascii", (err, data) => {
+            if(err) throw err;
+            console.log("Users: ");
+        
+            process(data, pool);
+        })
+        fs.readFile(path.join(__dirname, '/sql/Posts.sql'),"ascii", (err, data) => {
+            if(err) throw err;
+            console.log("Posts: ")
+            process(data, pool);
+        })
+        fs.readFile(path.join(__dirname, '/sql/Replies.sql') ,"ascii", (err, data) => {
+            if(err) throw err;
+            console.log("Replies: ");
+            process(data, pool)
+        })
+        fs.readFile(path.join(__dirname, '/sql/Comments.sql'),"ascii", (err, data) => {
+            if(err) throw err;
+            console.log("Comments:");
+            process(data, pool)
+        })
+        /*
         let rl = readline.createInterface({
-            input:  fs.createReadStream('./sql/CreatePostTablesQuery.sql'),
+            input:  fs.createReadStream('./sql/oldsql/CreatePostTablesQuery.sql'),
             terminal: false
         });
         let pool = this.pool;
@@ -45,9 +74,11 @@ function Connection() {
                 if(err) console.log(err);
             });
         })
+
         rl.on('close', function() {
             console.log("Finished");
         })
+        */
     }
     this.acquire = function(callback) {
         this.pool.getConnection(function(err, connection) {

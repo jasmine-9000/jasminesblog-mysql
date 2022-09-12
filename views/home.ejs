@@ -15,13 +15,19 @@
     <link rel="stylesheet" href="/public/style.css">
     <link rel="stylesheet" href="/public/comment.css">
     <link rel="stylesheet" href="/public/post.css">
+    <style>
+        h1 {
+            font-size: 24px;
+        }
+    </style>
 </head>
 <body>
     <%- include('partials/header.ejs') %>
-    <h1>Hello, reader! This is the home page.</h1>
+    <h1 class="title">Hello, reader! This is the home page.</h1>
     <h2>This is where I write what's on my mind.</h2>
     <p>Since I have no idea how authorization works yet, I made it so anyone can edit.</p>
     <p>Please don't abuse it, ok? :)</p>
+    <p></p>
     <button class="" onclick="(() => {console.log('hello'); window.location.href = '/newpost';})()">New Post</button>
 </body>
 

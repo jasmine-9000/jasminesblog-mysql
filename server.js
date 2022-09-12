@@ -29,16 +29,19 @@ app.use(
     })
 )
 app.use(express.json());
+app.set('view engine', 'ejs');
 
 
 // STATIC SERVERS
 app.use('/public/', express.static(__dirname + '/public'));
-app.use('/ejs', express.static(__dirname + '/ejs'));
+app.use('/ejs', express.static(__dirname + '/views'));
 app.use('/ejs/partials', express.static(__dirname + '/views/partials'));
 
 
 // ROUTE SETUP
 app.get('/', (req, res) => {
+    res.render('home', {});
+    /*
     const HTML = ejs.renderFile(__dirname + '/views/home.ejs', {}, function(err, string) {
         if(err) {
             console.log("Error rendering home.ejs");
@@ -48,6 +51,7 @@ app.get('/', (req, res) => {
         }
         res.send(string);
     });
+    */
     // res.sendFile(__dirname + '/index.html');
 }) 
 app.get('/contact', (req, res) => {
@@ -82,9 +86,12 @@ app.get('/editpost/:id', post.editpost);
 app.put('/editpost/:id', post.editpost_receive);
 app.get('/deletepost/:id', post.deletepost);
 app.get('/ejssample', (req, res) => {
+    res.render('<%= people.join(",");%>', {people: ['geddy', 'meow']})
+    /*
     const HTML = ejs.render('<%= people.join(",");%>', {people: ['geddy', 'meow']})
     console.log(HTML);
     res.send(HTML);
+    */
 })
 app.get('/comments/:id', comment.getcommentbyid)
 app.put('/comments/addlike/:id', comment.addlike);
