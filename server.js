@@ -38,7 +38,7 @@ app.use('/ejs/partials', express.static(__dirname + '/views/partials'));
 
 
 // ROUTE SETUP
-app.get('/a', (req, res) => {
+app.get('/', (req, res) => {
     res.render('home', {});
     /*
     const HTML = ejs.renderFile(__dirname + '/views/home.ejs', {}, function(err, string) {
