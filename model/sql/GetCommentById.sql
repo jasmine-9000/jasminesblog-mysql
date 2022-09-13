@@ -1,0 +1,1 @@
+SELECT * FROM Comments INNER JOIN Users ON Users.UserID = Comments.AuthorID AND CommentID = $CommentID

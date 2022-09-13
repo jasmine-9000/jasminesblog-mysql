@@ -14,7 +14,6 @@ const PASSWORD = process.env.DB_PASSWORD;
 const WINDOWS_SERVICE_NAME = process.env.WINDOWS_SERVICE_NAME_MYSQL;
 const DBNAME = process.env.DB_NAME;
 const POOLSIZE = 100;
-
 function Connection() {
     console.log("Trying login to database with these credentials: ");
     console.log("Database Host:", HOST);
@@ -100,4 +99,10 @@ function Connection() {
     }
     console.log("Connection: " + this.pool);
 }
-module.exports = new Connection();
+
+const conn = new Connection();
+conn.init();
+
+
+
+module.exports = {conn}

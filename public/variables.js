@@ -1,4 +1,4 @@
-const SERVER_PORT = 5500;
+const SERVER_PORT = 80;
 const SERVER_HOST = "localhost";
 const SERVER_PROTOCOL = "http";
 

@@ -8,7 +8,7 @@
     "start": "node server.js",
     "startdev": "nodemon server.js"
   },
-  "author": "",
+  "author": "Jasmine Kerr",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.1",
