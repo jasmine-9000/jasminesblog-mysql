@@ -1,5 +1,5 @@
 'use strict'
-
+const express = require('express');
 // get root of app directory with path module.
 const {dirname} = require('path');
 const appDir = dirname(require.main.filename);
@@ -9,23 +9,21 @@ const {GetPostById} = require('../model/mysqlconnection');
 // get utilities required for this module.
 const {grabpost, convertcomment, convertpost} = require('../utils/util');
 // third party modules required 
-const ejs = require('ejs');
-const SqlString = require('sqlstring');
+
 
 const Comments = require('../controller/comments')
 const Posts = require('../controller/posts');
 
+const router = express.Router();
 
-
-
-// create the function for '/post/:id'. 
-exports.getpost = Posts.GetPostByID;
-exports.getallposts = Posts.GetAllPosts;
-exports.newpost =  (req, res) => {
+router.get('/posts', Posts.GetAllPosts);
+router.get('/newpost', (req, res) => {
     res.sendFile(appDir + '/public/newpost.html');
-}
-exports.newpost_receive = Posts.CreateNewPost;
-exports.editpost = Posts.EditPostPage;
-exports.editpost_receive = Posts.EditPost;
+});
+router.post('/newpost', Posts.CreateNewPost);
+router.get('/posts/:id', Posts.GetPostByID)
+router.get('/editpost/:id', Posts.EditPostPage);
+router.put('/editpost/:id', Posts.EditPost);
+router.get('/deletepost/:id', Posts.DeletePost);
 
-exports.deletepost = Posts.DeletePost;
+module.exports = router;

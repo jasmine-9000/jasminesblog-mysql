@@ -1,12 +1,10 @@
 // get root of app directory with path module.
 const {dirname} = require('path');
-const appDir = dirname(require.main.filename);
 
 
 // get utilities required for this module.
 const {grabpost, convertcomment, convertpost} = require('../utils/util');
 // third party modules required 
-const ejs = require('ejs');
 const SqlString = require('sqlstring');
 const {conn} = require('../model/mysqlconnection')
 
@@ -32,20 +30,27 @@ function GetAllCommentsSQLFile() {
 }
 
 function GetCommentsByID (req, res) {
-    let HTML = "";
-    conn.pool.execute(`SELECT * FROM Comments INNER JOIN Users ON Users.UserID = Comments.AuthorID AND CommentID = ${req.params.id}`, function(err, results, fields) {
-        if(err) {
-            console.log("Error retrieving comment: ");
-            console.error(err);
-            res.send("404 error");
-            return;
-        }
-        console.log(results);
-        let data = convertcomment(results[0]);
-        console.log(data);
-        data.CommentID = req.params.id;
-        res.render('singularcomment.js', {comment: data});
-    })
+    try {
+        
+        console.log("In Controller")
+        let HTML = "";
+        conn.pool.execute(`SELECT * FROM Comments INNER JOIN Users ON Users.UserID = Comments.AuthorID AND CommentID = ${req.params.id}`, function(err, results, fields) {
+            if(err) {
+                console.log("Error retrieving comment: ");
+                console.error(err);
+                res.send("404 error");
+                return;
+            }
+            console.log(results);
+            let data = convertcomment(results[0]);
+            console.log(data);
+            data.CommentID = req.params.id;
+            res.render('singularcomment', {comment: data});
+        })
+    } catch {
+        console.log("Error:")
+        res.send("503 error");
+    }
 }
 
 function AddLike (req, res) {
@@ -125,15 +130,22 @@ function AddDislike (req, res) {
 }
 
 function GetAllComments (req, res)  {
-    conn.pool.execute(`SELECT * FROM Comments`, (err, results) => {
-        if(err) {
-            console.log("Error retrieving all comments. Error: ");
-            console.error(err);
-            res.send("Internal Server Error", 503)
-            return;
-        }
-        res.render('allcomments.ejs', {comments: results});
-    })
+    try {
+
+        console.log("In GetAllComments");
+        conn.pool.execute(`SELECT * FROM Comments`, (err, results) => {
+            if(err) {
+                console.log("Error retrieving all comments. Error: ");
+                console.error(err);
+                res.send("Internal Server Error", 503)
+                return;
+            }
+            res.render('allcomments.ejs', {comments: results});
+        })
+    } catch{
+        console.log("Error");
+        res.send("503 Internal Server Error");
+    }
 }
 function AddComment (req, res) {
     console.log("Stuff received")

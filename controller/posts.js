@@ -193,18 +193,6 @@ function DeletePost (req, res)  {
         }
     })
 }
-function GetAllComments (req, res)  {
-    conn.pool.execute(`SELECT * FROM Comments`, (err, results) => {
-        if(err) {
-            console.log("Error retrieving all comments. Error: ");
-            console.error(err);
-            res.send("Internal Server Error", 503)
-            return;
-        }
-        res.render('allcomments.ejs', {comments: results});
-    })
-}
-
 
 module.exports = {
     GetPostByID,
@@ -212,6 +200,5 @@ module.exports = {
     CreateNewPost,
     EditPostPage,
     EditPost,
-    DeletePost,
-    GetAllComments
+    DeletePost
 }

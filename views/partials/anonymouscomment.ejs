@@ -2,7 +2,7 @@
     <p class="comment__innertext">
         <%= InnerText %>
     </p>
-    <p class="comment__author">Left by <span id="author_id<%= CommentID %>"> <%= Username ? Username : "unknown" %></span></p>
+    <p class="comment__author">Left by <span id="author_id<%= CommentID %>">Anonymous</span></p>
     
     <div class="likes__and__dislikes">
         <div class="likebutton">&#128077;<p class="comment__likes" data-commentid=<%= CommentID %>><span id="likes_id<%= CommentID %>" ><%= Likes %></span></p></div>

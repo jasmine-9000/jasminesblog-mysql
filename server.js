@@ -1,12 +1,11 @@
 const mysql = require('mysql2');
 const express = require('express');
-const ejs = require('ejs');
 const SqlString = require('sqlstring');
 
 
 require('dotenv').config();
-const post = require('./routes/postroutes')
-const comment = require('./routes/comments');
+const postroutes = require('./routes/postroutes')
+const commentroutes = require('./routes/comments');
 const {grabpost, convertcomment, convertpost} = require('./utils/util');
 // import ifixit from './ifixit.json' assert {type: 'json'};
 
@@ -39,7 +38,7 @@ app.use('/ejs/partials', express.static(__dirname + '/views/partials'));
 
 
 // ROUTE SETUP
-app.get('/', (req, res) => {
+app.get('/a', (req, res) => {
     res.render('home', {});
     /*
     const HTML = ejs.renderFile(__dirname + '/views/home.ejs', {}, function(err, string) {
@@ -78,13 +77,8 @@ app.get('/store', (req, res) => {
 })
 
 // POST ROUTES
-app.get('/posts', post.getallposts);
-app.get('/newpost', post.newpost);
-app.post('/newpost', post.newpost_receive);
-app.get('/posts/:id', post.getpost)
-app.get('/editpost/:id', post.editpost);
-app.put('/editpost/:id', post.editpost_receive);
-app.get('/deletepost/:id', post.deletepost);
+app.use('/', postroutes)
+app.use('/comments', commentroutes)
 app.get('/ejssample', (req, res) => {
     res.render('<%= people.join(",");%>', {people: ['geddy', 'meow']})
     /*
@@ -93,14 +87,7 @@ app.get('/ejssample', (req, res) => {
     res.send(HTML);
     */
 })
-app.get('/comments/:id', comment.getcommentbyid)
-app.put('/comments/addlike/:id', comment.addlike);
-app.get('/comments/addlike/:id', comment.getlikesbyid);
-app.put('/comments/adddislike/:id', comment.adddislike)
-app.get('/comments', comment.getallcomments)
-app.post('/comments', comment.addcomment);
-app.put('/comments/:id', comment.editcommentbyid);
-app.delete('/comments/:id', comment.deletecommentbyid);
+
 
 // Make server listen on port. 
 app.listen(SERVER_PORT, () => {
