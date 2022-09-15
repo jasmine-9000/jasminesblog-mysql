@@ -40,40 +40,12 @@ app.use('/ejs/partials', express.static(__dirname + '/views/partials'));
 // ROUTE SETUP
 app.get('/', (req, res) => {
     res.render('home', {});
-    /*
-    const HTML = ejs.renderFile(__dirname + '/views/home.ejs', {}, function(err, string) {
-        if(err) {
-            console.log("Error rendering home.ejs");
-            console.log(err);
-            res.send("Error Rendering EJS: " + err.message);
-            return;
-        }
-        res.send(string);
-    });
-    */
-    // res.sendFile(__dirname + '/index.html');
 }) 
 app.get('/contact', (req, res) => {
-    const HTML = ejs.renderFile(__dirname + '/views/contact.ejs', {}, function(err, string) {
-        if(err) {
-            console.log("Error rendering home.ejs");
-            console.log(err);
-            res.send("Error Rendering EJS: " + err.message);
-            return;
-        }
-        res.send(string);
-    });
+    res.render('contact');
 })
 app.get('/store', (req, res) => {
-    const HTML = ejs.renderFile(__dirname + '/views/store.ejs', {}, function(err, string) {
-        if(err) {
-            console.log("Error rendering home.ejs");
-            console.log(err);
-            res.send("Error Rendering EJS: " + err.message);
-            return;
-        }
-        res.send(string);
-    });
+   res.render('store');
 })
 
 // POST ROUTES

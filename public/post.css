@@ -1,6 +1,13 @@
-.post {
-    margin: 25px 35px 25px 35px;
 
+.container {
+    padding-left: 35px;
+    padding-left: 35px;
+    width: calc(100% - 2*35px)
+}
+
+.post {
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .post__title {
@@ -24,7 +31,7 @@
 .editpost_link:hover,
 .deletepost_link,
 .deletepost_link:visited,
-.deletepost_link:hover{
+.deletepost_link:hover {
     text-decoration: none;
     color: #212121;
     font-weight: 700;
@@ -33,4 +40,26 @@
     border-radius: 7px;
     padding: 5px;
     background-color: var(--third-color);
+}
+
+@media (prefers-color-scheme: dark){
+    .editpost_link,
+    .editpost_link:visited,
+    .editpost_link:hover,
+    .deletepost_link,
+    .deletepost_link:visited,
+    .deletepost_link:hover {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    .post__subtitle {
+        color: white;
+    }
+    .post__mainbody {
+        color: white;
+    }
+    .post__conclusion {
+        color: white;
+    }
 }

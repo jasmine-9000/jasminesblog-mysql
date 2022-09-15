@@ -17,9 +17,7 @@ const Posts = require('../controller/posts');
 const router = express.Router();
 
 router.get('/posts', Posts.GetAllPosts);
-router.get('/newpost', (req, res) => {
-    res.sendFile(appDir + '/public/newpost.html');
-});
+router.get('/newpost', Posts.NewPost);
 router.post('/newpost', Posts.CreateNewPost);
 router.get('/posts/:id', Posts.GetPostByID)
 router.get('/editpost/:id', Posts.EditPostPage);

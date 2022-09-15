@@ -16,8 +16,6 @@
 </head>
 <body>
     <% comments.forEach((comment, index) => { %>
-        <p><%= comment.me %></p><br>
-        <p><% index %></p>
 
         <%- include ('partials/anonymouscomment.ejs', comment) %>
     <% }); %>

@@ -4,10 +4,24 @@
     grid-template-columns: auto;
     grid-template-rows: auto;
 }
-
-.comment {
-    border: 1px solid red;
+.comment:not(:last-child) {
+    margin-bottom: 10px;
 }
+@media (prefers-color-scheme: dark) {
+    .comment__grid .comment {
+        border: none;
+        background-color: #565656;
+        color: white;
+        padding: 10px;
+        line-height: 1.5;
+    }
+}
+@media (prefers-color-scheme: light) {
+    .comment__grid .comment {
+        border: 1px solid red;
+    }
+}
+
 .likes__and__dislikes {
     display: flex;
     flex-direction: row;
@@ -21,8 +35,11 @@
 /* for working on comments: */
 body > .comment {
     border: none;
-    margin: 20px;
+    margin-left: 20px;
     background-color: #565656;
+    color: white;
+    padding: 10px;
+    line-height: 1.5;
 }
 
 
